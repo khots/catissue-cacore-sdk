@@ -15,7 +15,7 @@
 	 <transformer name="mapping"
 	 	className="gov.nih.nci.codegen.core.transformer.UML13CastorMappingTransformer">
 	 	<param name="basePackage" value="Logical View.Logical Model"/>
-	 	<param name="includeAssociations" value="true"/>
+	 	<param name="includeAssociations" value="false"/>
 <!-- NOTE!!!  includeFieldHandler should be left as "false" for the unmarshaller -->	 		
 	 	<param name="includeFieldHandler" value="false"/>	
 	  <filter name="classifier" className="gov.nih.nci.codegen.core.filter.UML13ClassifierFilter">
