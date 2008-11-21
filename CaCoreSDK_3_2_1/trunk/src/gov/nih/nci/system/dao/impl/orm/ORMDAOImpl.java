@@ -3,6 +3,7 @@ package gov.nih.nci.system.dao.impl.orm;
 import gov.nih.nci.common.net.Request;
 import gov.nih.nci.common.net.Response;
 import gov.nih.nci.common.util.CQL2HQL;
+import gov.nih.nci.common.util.ClientInfoThreadVariable;
 import gov.nih.nci.common.util.Constant;
 import gov.nih.nci.common.util.HQLCriteria;
 import gov.nih.nci.common.util.HibernateQueryWrapper;
@@ -15,6 +16,7 @@ import gov.nih.nci.system.query.cql.CQLQuery;
 import gov.nih.nci.system.servicelocator.ServiceLocator;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Properties;
 
@@ -112,6 +114,7 @@ public class ORMDAOImpl implements DAO
 			{
 				hCriteria = ((org.hibernate.criterion.DetachedCriteria)request.getRequest()).getExecutableCriteria(session);
 				log.info("Detached Criteria Query :"+hCriteria.toString());
+				callAuditAPIQuery(hCriteria.toString());
 				if (hCriteria != null)
 				{
 				    if(isCount != null && isCount.booleanValue())
@@ -162,6 +165,7 @@ public class ORMDAOImpl implements DAO
 				NestedCriteria2HQL converter = new NestedCriteria2HQL((NestedCriteria)obj, ormConn.getConfiguration(counter), session);
 				query = converter.translate();
 				log.info("HQL Query :"+query.getQueryString());
+				callAuditAPIQuery(query.getQueryString());
 				if (query != null)
 				{
 					if(isCount != null && isCount.booleanValue())
@@ -205,6 +209,7 @@ public class ORMDAOImpl implements DAO
 			{
 				Query hqlQuery = session.createQuery(((HQLCriteria)obj).getHqlString());
 				log.info("HQL Criteria Query :"+hqlQuery.getQueryString());
+				callAuditAPIQuery(hqlQuery.getQueryString());
 				if(isCount != null && isCount.booleanValue())
 			    {
 					rowCount = new Integer(hqlQuery.list().size());
@@ -241,6 +246,7 @@ public class ORMDAOImpl implements DAO
 				String hql = queryWrapper.getHql();
 				List params = queryWrapper.getParameters();
 				log.info("CQL Query :"+hql);
+				callAuditAPIQuery(hql);
 				Query hqlQuery = session.createQuery(hql);
 				
 				for(int i = 0; i<params.size();i++)
@@ -344,5 +350,26 @@ public class ORMDAOImpl implements DAO
 		catch(Exception ex){
 			log.error("Exception ", ex);			
 		}
+	}
+	
+	/**
+	 * Calls the specified method of caTissue Delegator class which is used to delegate call to actual biz logic.
+	 * @param methodName method name of catissue delegator class
+	 * @param clientInfo client info object
+	 * @param domainObject domain object
+	 * @return domain object
+	 */
+	private void callAuditAPIQuery(String hql) throws Exception
+	{
+		// specify the className of caTissue core delgator class
+		final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
+		 
+		String userName = ClientInfoThreadVariable.getUserName();
+		Class delegator = Class.forName(DELEGATOR_CLASS);
+		Object obj = delegator.newInstance();
+		Method method = delegator.getDeclaredMethod("auditAPIQuery", new Class[]{String.class,String.class});
+		Object[] args = {hql,userName};
+		method.invoke(obj,args);
+
 	}
 }
