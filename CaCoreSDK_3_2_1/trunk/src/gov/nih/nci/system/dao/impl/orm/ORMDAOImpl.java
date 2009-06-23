@@ -16,7 +16,10 @@ import gov.nih.nci.system.query.cql.CQLQuery;
 import gov.nih.nci.system.servicelocator.ServiceLocator;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
@@ -27,6 +30,8 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
+import org.hibernate.mapping.PersistentClass;
+import org.hibernate.mapping.Property;
 
 /**
   * <!-- LICENSE_TEXT_START -->
@@ -107,6 +112,7 @@ public class ORMDAOImpl implements DAO
 		log.debug("Integer resultsPerQuery = " + resultsPerQuery);		
 		Boolean isCount = request.getIsCount();
 		log.debug("boolean isCount = " + isCount.booleanValue());
+		getMaxRecordsPerQuery();
 	
 		try
 		{
@@ -126,7 +132,7 @@ public class ORMDAOImpl implements DAO
 				    }
 				    else if((isCount != null && !isCount.booleanValue()) || isCount == null)
 				    {
-						if(firstRow != null)
+	/*					if(firstRow != null)
 				            hCriteria.setFirstResult(firstRow.intValue());
 				        if(resultsPerQuery != null)
 				        {
@@ -146,9 +152,10 @@ public class ORMDAOImpl implements DAO
 				        {
 				            hCriteria.setMaxResults(recordsPerQuery);
 
-				        }
+				        }*/
 //				        Set resultSet = new HashSet(hCriteria.list());
 //						rs = new ArrayList((Collection)resultSet);
+				        hCriteria.setMaxResults(maxRecordsPerQuery);
 				        rs = hCriteria.list();
 				    }
 				}				
@@ -176,7 +183,7 @@ public class ORMDAOImpl implements DAO
 					}
 					else if((isCount != null && !isCount.booleanValue()) || isCount == null)
 				    {	
-				    	if(firstRow != null)
+/*				    	if(firstRow != null)
 				    	{
 				    		log.debug("Setting First Row to " + firstRow);
 					        query.setFirstResult(firstRow.intValue());				    		
@@ -199,15 +206,25 @@ public class ORMDAOImpl implements DAO
 				        {
 				        	log.debug("Setting Max Results to " + recordsPerQuery);
 				            query.setMaxResults(recordsPerQuery);
-
-				        }
+				        }*/
+				    	query.setMaxResults(maxRecordsPerQuery);
 				    	rs = query.list();
 				    }				
 				}
 			}
 			else if (obj instanceof HQLCriteria)
 			{
-				Query hqlQuery = session.createQuery(((HQLCriteria)obj).getHqlString());
+				Query hqlQuery=null;
+				boolean isQueryFromGrid = isQueryFromGrid((HQLCriteria)obj); 
+				if(isQueryFromGrid)
+				{
+					hqlQuery = session.createQuery(modifiyQueryFromGrid(((HQLCriteria)obj).getHqlString()));
+				}
+				else
+				{
+					hqlQuery = session.createQuery(((HQLCriteria)obj).getHqlString());
+				}
+				
 				log.info("HQL Criteria Query :"+hqlQuery.getQueryString());
 				callAuditAPIQuery(hqlQuery.getQueryString());
 				if(isCount != null && isCount.booleanValue())
@@ -216,7 +233,7 @@ public class ORMDAOImpl implements DAO
 				}
 				else if((isCount != null && !isCount.booleanValue()) || isCount == null)
 			    {	
-			    	if(firstRow != null)
+/*			    	if(firstRow != null)
 			    	{
 			    		hqlQuery.setFirstResult(firstRow.intValue());				    		
 			    	}
@@ -235,9 +252,14 @@ public class ORMDAOImpl implements DAO
 			    	}
 			        else
 			        {
-			        	hqlQuery.setMaxResults(recordsPerQuery);
-			        }
+			        	hqlQuery.setMaxResults(maxRecordsPerQuery);
+			        }*/
+			    	hqlQuery.setMaxResults(maxRecordsPerQuery);
 			    	rs = hqlQuery.list();
+			    	if(isQueryFromGrid)
+			    	{
+			    		rs = createObjectList(ormConn.getConfiguration(counter).getClassMapping(entityName),entityName, rs);
+			    	}	
 			    }				
 			}
 			else if (obj instanceof CQLQuery)
@@ -258,7 +280,7 @@ public class ORMDAOImpl implements DAO
 				}
 				else if((isCount != null && !isCount.booleanValue()) || isCount == null)
 			    {	
-			    	if(firstRow != null)
+/*			    	if(firstRow != null)
 			    	{
 			    		hqlQuery.setFirstResult(firstRow.intValue());				    		
 			    	}
@@ -277,8 +299,9 @@ public class ORMDAOImpl implements DAO
 			    	}
 			        else
 			        {
-			        	hqlQuery.setMaxResults(recordsPerQuery);
-			        }
+			        	hqlQuery.setMaxResults(maxRecordsPerQuery);
+			        }*/
+			    	hqlQuery.setMaxResults(maxRecordsPerQuery);
 			    	rs = hqlQuery.list();
 			    }				
 			}
@@ -319,7 +342,7 @@ public class ORMDAOImpl implements DAO
 		    rsp.setResponse(rs);
 		return rsp;
 	}
-
+	
 	private void loadProperties(){
 
 		try{
@@ -371,5 +394,115 @@ public class ORMDAOImpl implements DAO
 		Object[] args = {hql,userName};
 		method.invoke(obj,args);
 
+	}
+	/**
+	 * If query is from grid then create the target object
+	 * and set the attributes by iterating over attributes defined in HBM
+	 * @param pclass
+	 * @param entityName
+	 * @param rows
+	 * @return
+	 * @throws Exception
+	 */
+	private List createObjectList(PersistentClass pclass,String entityName,List rows) throws Exception
+	{
+		List retrunList = new ArrayList();
+		List<Field> fieldList = new ArrayList<Field>();
+		PersistentClass targetClass = pclass;
+		pclass =targetClass;
+		/**
+		 * Get the field list of Target class
+		 */
+		getFieldList(pclass,fieldList);
+		/**
+		 * Loop over all the super classes of target class
+		 */
+		while(pclass.getSuperclass() != null)
+		{
+			pclass = pclass.getSuperclass();
+			/**
+			 * Get the field list of Super class
+			 */
+			getFieldList(pclass,fieldList);
+		}
+		/**
+		 * get the identifier field
+		 */
+		String identifier = pclass.getIdentifierProperty().getName();
+		Field idField = pclass.getMappedClass().getDeclaredField(identifier);
+		idField.setAccessible(true);
+		fieldList.add(idField);
+		/**
+		 * Call caCOREAppServiceDelegator to create domain object instanes
+		 */
+		final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
+		Class delegator = Class.forName(DELEGATOR_CLASS);
+		Object obj = delegator.newInstance();
+		Method method = delegator.getDeclaredMethod("createTargetObjectList", new Class[]{String.class,List.class,List.class});
+		Object[] args = {entityName,fieldList,rows};
+		retrunList = (List)method.invoke(obj,args);
+		return retrunList;
+	}
+	
+	private void getFieldList(PersistentClass pclass,List<Field> fieldList) throws Exception
+	{
+		Iterator<Property>properties = pclass.getPropertyIterator();
+		while(properties.hasNext())
+		{
+			Property prop =  properties.next();
+			if (!prop.getType().isAssociationType())
+			{
+				String fieldName = prop.getName();
+				Field field = pclass.getMappedClass().getDeclaredField(fieldName);
+				field.setAccessible(true);
+				fieldList.add(field);
+			}
+		}
+	}
+
+	/**
+	 * Metod to check is HQL query from cagrid serivice 
+	 * @param hqlCriteria
+	 * @return
+	 */
+	private boolean isQueryFromGrid(HQLCriteria hqlCriteria)
+	{
+		boolean isQueryFromGrid = false;
+		if(hqlCriteria.getHqlString().startsWith("GridQuery:"))
+		{
+			isQueryFromGrid =true;
+		}
+		return isQueryFromGrid;
+	}
+	
+	/**
+	 * if HQL is from caGRID then modify the HQL by removing GridQuery: prefix
+	 * @param hql
+	 * @return
+	 */
+	private String modifiyQueryFromGrid(String hql)
+	{
+		StringBuffer str = new StringBuffer(hql);
+		
+		str.delete(0, "GridQuery:".length());
+		return str.toString();
+	}
+	
+	/**
+	 * Get Max records allowed per query from caTissueCore_properties.xml
+	 */
+	private void getMaxRecordsPerQuery()
+	{
+
+		try{
+			final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
+			Class delegator = Class.forName(DELEGATOR_CLASS);
+			Object obj = delegator.newInstance();
+			Method method = delegator.getDeclaredMethod("getAllowedMaxRecordsPerQuery", null);
+			maxRecordsPerQuery = ((Integer)method.invoke(obj,null)).intValue();
+		}
+		catch(Exception ex){
+			log.error("Exception ", ex);			
+		}
 	}
 }
