@@ -173,20 +173,10 @@ public class ApplicationServiceBusinessImpl {
 	 * 
 	 */
 	public int getQueryRowCount(Object criteria, String targetClassName) throws ApplicationException {
-		Integer count = null;
-		Response response = new Response();
-		Request request = new Request(criteria);
-		request.setIsCount(Boolean.TRUE);
-		request.setDomainObjectName(targetClassName);
-
-		response = query(request);
-		count = response.getRowCount();
-
-		if (count != null)
-			return count.intValue();
-		else
-			return 0;
+		// 
+		throw new ApplicationException("caTissue doesnot support queries which returns result list containing instances of classes other than caTissue domain model");
 	}
+	
 
 	public List query(DetachedCriteria detachedCriteria, String targetClassName) throws ApplicationException {
 		return privateQuery((Object) detachedCriteria, targetClassName);
@@ -218,7 +208,7 @@ public class ApplicationServiceBusinessImpl {
 	private List privateQuery(Object criteria, String targetClassName) throws ApplicationException {
 
 		List results = null;
-		List resultList = new ListProxy();
+		//List resultList = new ListProxy();
 		Response response = new Response();
 		Request request = new Request(criteria);
 		request.setIsCount(Boolean.FALSE);
@@ -241,23 +231,27 @@ public class ApplicationServiceBusinessImpl {
 			request.setRecordsCount(new Integer(localRecordsCount));
 		}
 		request.setDomainObjectName(targetClassName);
-		
 		response = query(request);
+		
 		results = (List) response.getResponse();
 
-		resultList.clear();
-		// Set the value for ListProxy
-		if (results != null) {
-			resultList.addAll(results);
-		}
-		ListProxy myProxy = (ListProxy) resultList;
-		myProxy.setOriginalStart(firstRow);
-		myProxy.setMaxRecordsPerQuery(localRecordsCount);
-		myProxy.setOriginalCriteria(criteria);
-		myProxy.setServerAddress(httpAddress);
-		myProxy.setTargetClassName(targetClassName);
+		/**
+		 * Commented ListProxy/Pagination usage
+		 */
+//		resultList.clear();
+//		// Set the value for ListProxy
+//		if (results != null) {
+//			resultList.addAll(results);
+//		}
+		
+//		ListProxy myProxy = (ListProxy) resultList;
+//		myProxy.setOriginalStart(firstRow);
+//		myProxy.setMaxRecordsPerQuery(localRecordsCount);
+//		myProxy.setOriginalCriteria(criteria);
+//		myProxy.setServerAddress(httpAddress);
+//		myProxy.setTargetClassName(targetClassName);
 
-		return resultList;
+		return results;
 
 	}
 
