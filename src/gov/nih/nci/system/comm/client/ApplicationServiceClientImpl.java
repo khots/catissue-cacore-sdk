@@ -282,4 +282,11 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	{
 		return applicationServiceProxy.getDefaultValue(getClientInfo(), key);
 	}
+
+   
+    public void registerParticipant(Object object, Long cpid, String userName)
+            throws ApplicationException
+    {
+        applicationServiceProxy.registerParticipant(getClientInfo(), object, cpid, userName);
+    }
 }

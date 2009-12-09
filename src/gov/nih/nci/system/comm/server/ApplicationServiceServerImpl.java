@@ -5,7 +5,6 @@ import gov.nih.nci.common.util.ClientInfoThreadVariable;
 import gov.nih.nci.common.util.Constant;
 import gov.nih.nci.common.util.HQLCriteria;
 import gov.nih.nci.common.util.SecurityConfiguration;
-import gov.nih.nci.system.query.cql.CQLQuery;
 import gov.nih.nci.system.applicationservice.ApplicationException;
 import gov.nih.nci.system.applicationservice.ApplicationService;
 import gov.nih.nci.system.comm.common.ApplicationServiceProxy;
@@ -503,5 +502,48 @@ public Object createObject(ClientInfo clientInfo, Object domainobject) throws Ap
 		list = (List) callDelegator(methodName,clientInfo,list);
 		return list;
 	}
+	/**
+	 * TThis will register particiant with empi
+	 */
+	public void registerParticipant(ClientInfo clientInfo, Object object, Long cpid, String userName)
+    throws ApplicationException
+    {
+        /*
+         * method name for to retrieve matching participant
+         */
+        String methodName = "delegateRegisterParticipant";
+        // calls the caTissue delegator
+        final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
+        String userId = getUserId(clientInfo);
+        System.out.println("userId*******::"+userId);
+        try
+        {
+            Class delegator = Class.forName(DELEGATOR_CLASS);
+            Object obj = delegator.newInstance();            
+            Method method = getMethod(delegator, methodName);            
+            Object[] args = {object,cpid,userId};
+            object = method.invoke(obj, args);
+        }
+        catch (ClassNotFoundException e)
+        {
+            throw handleException(e);
+        }
+        catch (IllegalAccessException e)
+        {
+            throw handleException(e);
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw handleException(e);
+        }
+        catch (InstantiationException e)
+        {
+            throw handleException(e);
+        }
+        catch (InvocationTargetException e)
+        {
+            throw handleException(e);
+        }
+    }
 
 }
