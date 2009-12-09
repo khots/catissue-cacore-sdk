@@ -331,5 +331,11 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		return null;
 	}
+	
+    public void registerParticipant(Object object, Long cpid,
+            String userName) throws ApplicationException
+    {
+        
+    }
 
 }

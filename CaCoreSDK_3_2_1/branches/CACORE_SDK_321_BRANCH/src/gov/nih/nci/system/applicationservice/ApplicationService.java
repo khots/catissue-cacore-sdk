@@ -97,4 +97,13 @@ public abstract class ApplicationService
 	 * Get default value for key
 	 */
 	public abstract String getDefaultValue(String key) throws ApplicationException;
+	/**
+	 * register participant
+	 * @param object
+	 * @param cpid
+	 * @param userName
+	 * @throws ApplicationException
+	 */
+    public abstract void registerParticipant(Object object, Long cpid,String userName) throws ApplicationException;
+
 }

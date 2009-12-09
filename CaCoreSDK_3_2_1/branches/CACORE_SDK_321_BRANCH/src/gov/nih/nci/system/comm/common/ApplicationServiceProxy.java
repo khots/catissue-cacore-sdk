@@ -66,4 +66,6 @@ public interface ApplicationServiceProxy
 	 */
 	public String getDefaultValue(ClientInfo clientInfo, String key) throws ApplicationException;
 	
+	public abstract void registerParticipant(ClientInfo clientInfo,Object object, Long cpid,String userName) throws ApplicationException;
+	
 }
