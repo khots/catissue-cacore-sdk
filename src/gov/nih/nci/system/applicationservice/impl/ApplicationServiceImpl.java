@@ -1,3 +1,4 @@
+
 package gov.nih.nci.system.applicationservice.impl;
 
 import gov.nih.nci.common.util.Constant;
@@ -18,18 +19,18 @@ import org.hibernate.criterion.DetachedCriteria;
 
 /**
  * @author Kunal Modi (Ekagra Software Technologies Ltd.)
- * 
+ *
  * TODO To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Style - Code Templates
  */
 public class ApplicationServiceImpl extends ApplicationService
 {
+
 	private static Logger log = Logger.getLogger(ApplicationServiceImpl.class.getName());
 	private ApplicationServiceBusinessImpl applicationServiceBusinessImpl = null;
 	private WritableDAO writableDAO = null;
 	private SecurityEnabler securityEnabler = null;
 
-	
 	/**
 	 * Default Constructor. It obtains appropriate implementation of the
 	 * {@link ApplicationService}interface and caches it. It also instantiates
@@ -41,7 +42,6 @@ public class ApplicationServiceImpl extends ApplicationService
 		this.writableDAO = new WritableDAO();
 		this.securityEnabler = new SecurityEnabler(SecurityConfiguration.getApplicationName());
 	}
-
 
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getBeanInstance()
@@ -79,7 +79,7 @@ public class ApplicationServiceImpl extends ApplicationService
 			throw new ApplicationException(e.getMessage(), e);
 		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#setSearchCaseSensitivity(boolean)
 	 */
@@ -87,14 +87,15 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		this.applicationServiceBusinessImpl.setSearchCaseSensitivity(caseSensitivity);
 	}
-	
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getQueryRowCount(java.lang.Object,
 	 *      java.lang.String)
 	 */
-	public int getQueryRowCount(Object criteria, String targetClassName) throws ApplicationException
+	public int getQueryRowCount(Object criteria, String targetClassName)
+			throws ApplicationException
 	{
 		try
 		{
@@ -109,11 +110,12 @@ public class ApplicationServiceImpl extends ApplicationService
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#query(java.lang.Object,
 	 *      java.lang.String)
 	 */
-	public List query(DetachedCriteria detachedcriteria, String targetClassName) throws ApplicationException
+	public List query(DetachedCriteria detachedcriteria, String targetClassName)
+			throws ApplicationException
 	{
 		List list = null;
 		try
@@ -127,10 +129,10 @@ public class ApplicationServiceImpl extends ApplicationService
 		}
 		return list;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#query(java.lang.Object,
 	 *      java.lang.String)
 	 */
@@ -147,39 +149,17 @@ public class ApplicationServiceImpl extends ApplicationService
 			throw new ApplicationException(e.getMessage(), e);
 		}
 		return list;
-	}	
+	}
 
-	
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#query(gov.nih.nci.query.cql.CQLQuery, java.lang.String)
 	 */
 	public List query(CQLQuery cqlQuery, String targetClassName) throws ApplicationException
 	{
-		List list = null;	
-		try
-		{
-			list = applicationServiceBusinessImpl.query(cqlQuery, targetClassName);
-		}
-		catch (Exception e)
-		{
-			log.error("Exception: ", e);
-			throw new ApplicationException(e.getMessage(), e);
-		}		
-		return list;
-	}	
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see gov.nih.nci.system.applicationservice.ApplicationService#query(java.lang.Object,
-	 *      int, int, java.lang.String)
-	 */
-	public List query(Object criteria, int firstRow, int resultsPerQuery, String targetClassName) throws ApplicationException
-	{
 		List list = null;
 		try
 		{
-			list = this.applicationServiceBusinessImpl.query(criteria, firstRow, resultsPerQuery, targetClassName);
+			list = applicationServiceBusinessImpl.query(cqlQuery, targetClassName);
 		}
 		catch (Exception e)
 		{
@@ -189,10 +169,32 @@ public class ApplicationServiceImpl extends ApplicationService
 		return list;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#query(java.lang.Object,
+	 *      int, int, java.lang.String)
+	 */
+	public List query(Object criteria, int firstRow, int resultsPerQuery, String targetClassName)
+			throws ApplicationException
+	{
+		List list = null;
+		try
+		{
+			list = this.applicationServiceBusinessImpl.query(criteria, firstRow, resultsPerQuery,
+					targetClassName);
+		}
+		catch (Exception e)
+		{
+			log.error("Exception: ", e);
+			throw new ApplicationException(e.getMessage(), e);
+		}
+		return list;
+	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#search(java.lang.Class,
 	 *      java.lang.Object)
 	 */
@@ -211,7 +213,7 @@ public class ApplicationServiceImpl extends ApplicationService
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#search(java.lang.Class,
 	 *      java.util.List)
 	 */
@@ -230,7 +232,7 @@ public class ApplicationServiceImpl extends ApplicationService
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#search(java.lang.String,
 	 *      java.lang.Object)
 	 */
@@ -249,7 +251,7 @@ public class ApplicationServiceImpl extends ApplicationService
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#search(java.lang.String,
 	 *      java.util.List)
 	 */
@@ -268,7 +270,7 @@ public class ApplicationServiceImpl extends ApplicationService
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#createObject(java.lang.Object)
 	 */
 	// NOTE: Use only "//" for comments in the following method
@@ -276,6 +278,7 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		return writableDAO.createObject(domainobject);
 	}
+
 	/*@WRITABLE_API_END@*/
 
 	/*
@@ -287,6 +290,7 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		return writableDAO.updateObject(domainobject);
 	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#removeObject(java.lang.Object)
@@ -296,9 +300,10 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		writableDAO.removeObject(domainobject);
 	}
+
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getObjects(java.lang.Object)
 	 */
 	// NOTE: Use only "//" for comments in the following method
@@ -306,16 +311,17 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		return writableDAO.getObjects(domainobject);
 	}
+
 	/*@WRITABLE_API_END@*/
 	/**
 	 * Participant look up API
 	 */
 	public List getParticipantMatchingObects(Object object) throws ApplicationException
 	{
-		
+
 		return null;
 	}
-	
+
 	/**
 	 * Get scg label
 	 */
@@ -323,7 +329,7 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		return null;
 	}
-	
+
 	/**
 	 * Get default value for key
 	 */
@@ -331,11 +337,21 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		return null;
 	}
-	
-    public void registerParticipant(Object object, Long cpid,
-            String userName) throws ApplicationException
-    {
-        
-    }
+
+	public void registerParticipant(Object object, Long cpid, String userName)
+			throws ApplicationException
+	{
+
+	}
+
+	public void registerParticipantToEMPI(Object object) throws ApplicationException
+	{
+
+	}
+
+	public void updateParticipantWithEMPIDetails(String demographicXML) throws ApplicationException
+	{
+
+	}
 
 }
