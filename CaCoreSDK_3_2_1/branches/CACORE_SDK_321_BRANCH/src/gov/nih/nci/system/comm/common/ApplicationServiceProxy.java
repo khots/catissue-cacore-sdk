@@ -39,33 +39,38 @@ public interface ApplicationServiceProxy
 	/*@WRITABLE_API_START@*/
 	public abstract Object createObject(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
 	/*@WRITABLE_API_END@*/
-	
+
 	/*@WRITABLE_API_START@*/
 	public abstract Object updateObject(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
 	/*@WRITABLE_API_END@*/
-	
+
 	/*@WRITABLE_API_START@*/
 	public abstract void removeObject(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
 	/*@WRITABLE_API_END@*/
-	
+
 	/*@WRITABLE_API_START@*/
 	public abstract List getObjects(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
 	/*@WRITABLE_API_END@*/
 	/**
-	 * PArticipant lookup API 
+	 * PArticipant lookup API
 	 */
 	public abstract List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
-	
+
 	/**
 	 * Get scg label
 	 */
 	public abstract String getSpecimenCollectionGroupLabel(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
-	
+
 	/**
 	 * Get default value for key
 	 */
 	public String getDefaultValue(ClientInfo clientInfo, String key) throws ApplicationException;
-	
+
 	public abstract void registerParticipant(ClientInfo clientInfo,Object object, Long cpid,String userName) throws ApplicationException;
-	
+
+	public abstract void registerParticipantToEMPI(ClientInfo clientInfo,Object object) throws ApplicationException;
+
+	public abstract void updateParticipantWithEMPIDetails(ClientInfo clientInfo,String demographicXML) throws ApplicationException;
+
+
 }
