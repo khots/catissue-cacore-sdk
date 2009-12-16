@@ -1,3 +1,4 @@
+
 package gov.nih.nci.system.comm.server;
 
 import gov.nih.nci.common.util.ClientInfo;
@@ -32,7 +33,8 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	public ApplicationServiceServerImpl()
 	{
 		securityEnabler = new SecurityEnabler(SecurityConfiguration.getApplicationName());
-		ApplicationContext ctx = new ClassPathXmlApplicationContext(Constant.APPLICATION_SERVICE_FILE_NAME);
+		ApplicationContext ctx = new ClassPathXmlApplicationContext(
+				Constant.APPLICATION_SERVICE_FILE_NAME);
 		applicationService = (ApplicationService) ctx.getBean(Constant.APPLICATION_SERVICE);
 	}
 
@@ -71,12 +73,13 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#search(gov.nih.nci.common.util.ClientInfo, java.lang.String, java.util.List)
 	 */
-	public List search(ClientInfo clientInfo, String path, List objList) throws ApplicationException
+	public List search(ClientInfo clientInfo, String path, List objList)
+			throws ApplicationException
 	{
 		ClientInfoThreadVariable.setClientInfo(clientInfo);
 		/*return applicationService.search(path, objList);*/
 		List list = applicationService.search(path, objList);
-		return callSearchFilter(list,clientInfo);
+		return callSearchFilter(list, clientInfo);
 
 	}
 
@@ -88,39 +91,42 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 		ClientInfoThreadVariable.setClientInfo(clientInfo);
 		//return applicationService.search(path, obj);
 		List list = applicationService.search(path, obj);
-		return callSearchFilter(list,clientInfo);
+		return callSearchFilter(list, clientInfo);
 
 	}
 
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#search(gov.nih.nci.common.util.ClientInfo, java.lang.Class, java.util.List)
 	 */
-	public List search(ClientInfo clientInfo, Class targetClass, List objList) throws ApplicationException
+	public List search(ClientInfo clientInfo, Class targetClass, List objList)
+			throws ApplicationException
 	{
 		ClientInfoThreadVariable.setClientInfo(clientInfo);
 		List list = applicationService.search(targetClass, objList);
-		return callSearchFilter(list,clientInfo);
+		return callSearchFilter(list, clientInfo);
 	}
 
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#search(gov.nih.nci.common.util.ClientInfo, java.lang.Class, java.lang.Object)
 	 */
-	public List search(ClientInfo clientInfo, Class targetClass, Object obj) throws ApplicationException
+	public List search(ClientInfo clientInfo, Class targetClass, Object obj)
+			throws ApplicationException
 	{
 		ClientInfoThreadVariable.setClientInfo(clientInfo);
 		//return applicationService.search(targetClass, obj);
 		List list = applicationService.search(targetClass, obj);
-		return callSearchFilter(list,clientInfo);
+		return callSearchFilter(list, clientInfo);
 	}
 
-		/* (non-Javadoc)
-		 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#query(gov.nih.nci.common.util.ClientInfo, java.lang.Object, int, int, java.lang.String)
-		 */
-		public List query(ClientInfo clientInfo, Object criteria, int firstRow, int resultsPerQuery, String targetClassName) throws ApplicationException
-		{
-			ClientInfoThreadVariable.setClientInfo(clientInfo);
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#query(gov.nih.nci.common.util.ClientInfo, java.lang.Object, int, int, java.lang.String)
+	 */
+	public List query(ClientInfo clientInfo, Object criteria, int firstRow, int resultsPerQuery,
+			String targetClassName) throws ApplicationException
+	{
+		ClientInfoThreadVariable.setClientInfo(clientInfo);
 
-			List list = applicationService.query(criteria, firstRow, resultsPerQuery, targetClassName);
+		List list = applicationService.query(criteria, firstRow, resultsPerQuery, targetClassName);
 
 		/*	if (securityEnabler.getSecurityLevel() > 0)
 			{
@@ -135,44 +141,19 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 				}
 			} */
 
-			return callSearchFilter(list,clientInfo);
+		return callSearchFilter(list, clientInfo);
 
-		}
+	}
 
-		/* (non-Javadoc)
-		 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#query(gov.nih.nci.common.util.ClientInfo, org.hibernate.criterion.DetachedCriteria, java.lang.String)
-		 */
-		public List query(ClientInfo clientInfo, DetachedCriteria detachedCriteria, String targetClassName) throws ApplicationException
-		{
-			ClientInfoThreadVariable.setClientInfo(clientInfo);
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#query(gov.nih.nci.common.util.ClientInfo, org.hibernate.criterion.DetachedCriteria, java.lang.String)
+	 */
+	public List query(ClientInfo clientInfo, DetachedCriteria detachedCriteria,
+			String targetClassName) throws ApplicationException
+	{
+		ClientInfoThreadVariable.setClientInfo(clientInfo);
 
-			List list = applicationService.query(detachedCriteria, targetClassName);
-
-		/*	if (securityEnabler.getSecurityLevel() > 0)
-			{
-				if (list.size() != 0)
-					targetClassName.concat("," + list.get(0).getClass().getName());
-				StringTokenizer tokenPath = new StringTokenizer(targetClassName, ",");
-				while (tokenPath.hasMoreTokens())
-				{
-					String domainObjectName =  tokenPath.nextToken().trim();
-					if (!securityEnabler.hasAuthorization(clientInfo.getSessionKey(),domainObjectName, "READ"))
-						throw new ApplicationException("User does not have privilege to perform a READ on " + domainObjectName+ " object");
-				}
-			}*/
-
-			return callSearchFilter(list,clientInfo);
-
-		}
-
-		/* (non-Javadoc)
-		 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#query(gov.nih.nci.common.util.ClientInfo, gov.nih.nci.common.util.HQLCriteria, java.lang.String)
-		 */
-		public List query(ClientInfo clientInfo, HQLCriteria hqlCriteria, String targetClassName) throws ApplicationException
-		{
-			ClientInfoThreadVariable.setClientInfo(clientInfo);
-
-			List list = applicationService.query(hqlCriteria, targetClassName);
+		List list = applicationService.query(detachedCriteria, targetClassName);
 
 		/*	if (securityEnabler.getSecurityLevel() > 0)
 			{
@@ -187,26 +168,55 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 				}
 			}*/
 
-			return callSearchFilter(list,clientInfo);
+		return callSearchFilter(list, clientInfo);
+
+	}
+
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#query(gov.nih.nci.common.util.ClientInfo, gov.nih.nci.common.util.HQLCriteria, java.lang.String)
+	 */
+	public List query(ClientInfo clientInfo, HQLCriteria hqlCriteria, String targetClassName)
+			throws ApplicationException
+	{
+		ClientInfoThreadVariable.setClientInfo(clientInfo);
+
+		List list = applicationService.query(hqlCriteria, targetClassName);
+
+		/*	if (securityEnabler.getSecurityLevel() > 0)
+			{
+				if (list.size() != 0)
+					targetClassName.concat("," + list.get(0).getClass().getName());
+				StringTokenizer tokenPath = new StringTokenizer(targetClassName, ",");
+				while (tokenPath.hasMoreTokens())
+				{
+					String domainObjectName =  tokenPath.nextToken().trim();
+					if (!securityEnabler.hasAuthorization(clientInfo.getSessionKey(),domainObjectName, "READ"))
+						throw new ApplicationException("User does not have privilege to perform a READ on " + domainObjectName+ " object");
+				}
+			}*/
+
+		return callSearchFilter(list, clientInfo);
 
 	}
 
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#getQueryRowCount(gov.nih.nci.common.util.ClientInfo, java.lang.Object, java.lang.String)
 	 */
-	public int getQueryRowCount(ClientInfo clientInfo, Object criteria, String targetClassName) throws ApplicationException
+	public int getQueryRowCount(ClientInfo clientInfo, Object criteria, String targetClassName)
+			throws ApplicationException
 	{
 		ClientInfoThreadVariable.setClientInfo(clientInfo);
 		return applicationService.getQueryRowCount(criteria, targetClassName);
 	}
 
-public Object createObject(ClientInfo clientInfo, Object domainobject) throws ApplicationException
+	public Object createObject(ClientInfo clientInfo, Object domainobject)
+			throws ApplicationException
 	{
-		
+
 		// method name for add
 		String methodName = "delegateAdd";
 		// calls the caTissue delegator
-		return callDelegator(methodName,clientInfo,domainobject);
+		return callDelegator(methodName, clientInfo, domainobject);
 		/*
 		 * Since we are checking authorization & priviledges in caTissue core application,it is not required.
 		 */
@@ -232,20 +242,20 @@ public Object createObject(ClientInfo clientInfo, Object domainobject) throws Ap
 		*/
 
 	}
-	
 
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#updateObject(gov.nih.nci.common.util.ClientInfo, java.lang.Object)
 	 */
 	// NOTE: Use only "//" for comments in the following method
-	public Object updateObject(ClientInfo clientInfo, Object domainobject) throws ApplicationException
+	public Object updateObject(ClientInfo clientInfo, Object domainobject)
+			throws ApplicationException
 	{
-		
+
 		//method name for edit
-		
+
 		String methodName = "delegateEdit";
 		// calls the caTissue delegator
-		return callDelegator(methodName,clientInfo,domainobject);
+		return callDelegator(methodName, clientInfo, domainobject);
 		/*
 		 * Since we are checking authorization & priviledges in caTissue core application,it is not required.
 		 */
@@ -274,15 +284,16 @@ public Object createObject(ClientInfo clientInfo, Object domainobject) throws Ap
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#removeObject(gov.nih.nci.common.util.ClientInfo, java.lang.Object)
 	 */
-	
+
 	// NOTE: Use only "//" for comments in the following method
-	public void removeObject(ClientInfo clientInfo, Object domainobject) throws ApplicationException
+	public void removeObject(ClientInfo clientInfo, Object domainobject)
+			throws ApplicationException
 	{
-		
-		 // method name for delete
+
+		// method name for delete
 		String methodName = "delegateDelete";
 		// calls the caTissue delegator
-		callDelegator(methodName,clientInfo,domainobject);
+		callDelegator(methodName, clientInfo, domainobject);
 		/*
 		 * Since we are checking authorization & priviledges in caTissue core application,it is not required.
 		 */
@@ -311,68 +322,69 @@ public Object createObject(ClientInfo clientInfo, Object domainobject) throws Ap
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#getObjects(gov.nih.nci.common.util.ClientInfo, java.lang.Object)
 	 */
-	
-	// NOTE: Use only "//" for comments in the following method
-		public List getObjects(ClientInfo clientInfo, Object domainobject) throws ApplicationException
-		{
 
-			/*
-			if (securityEnabler.getSecurityLevel() > 0)
+	// NOTE: Use only "//" for comments in the following method
+	public List getObjects(ClientInfo clientInfo, Object domainobject) throws ApplicationException
+	{
+
+		/*
+		if (securityEnabler.getSecurityLevel() > 0)
+		{
+			try
 			{
-				try
+				String domainObjectName = domainobject.getClass().getName();
+				if (!securityEnabler.hasAuthorization(clientInfo.getSessionKey(), domainObjectName, "READ"))
 				{
-					String domainObjectName = domainobject.getClass().getName();
-					if (!securityEnabler.hasAuthorization(clientInfo.getSessionKey(), domainObjectName, "READ"))
-					{
-						throw new ApplicationException("User does not have privilege to CREATE " + domainObjectName + " object");
-					}
-				}
-				catch (ApplicationException e)
-				{
-					throw new ApplicationException(e.getMessage());
+					throw new ApplicationException("User does not have privilege to CREATE " + domainObjectName + " object");
 				}
 			}
+			catch (ApplicationException e)
+			{
+				throw new ApplicationException(e.getMessage());
+			}
+		}
 
-			return applicationService.getObjects(domainobject);
-			*/
+		return applicationService.getObjects(domainobject);
+		*/
 
-			
-			// method name for delete
-			
-			String methodName = "delegateGetObjects";
-			// calls the caTissue delegator
-			List list = (List) callDelegator(methodName,clientInfo,domainobject);
-			return list;
+		// method name for delete
+
+		String methodName = "delegateGetObjects";
+		// calls the caTissue delegator
+		List list = (List) callDelegator(methodName, clientInfo, domainobject);
+		return list;
 	}
 
 	/**
 	 * Participant lookup API
 	 */
-	public List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject) throws ApplicationException
+	public List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject)
+			throws ApplicationException
 	{
 		/*
 		 * method name for to retrieve matching participant
 		 */
 		String methodName = "delegateGetParticipantMatchingObects";
 		// calls the caTissue delegator
-		List list = (List) callDelegator(methodName,clientInfo,domainobject);
+		List list = (List) callDelegator(methodName, clientInfo, domainobject);
 		return list;
 	}
-	
+
 	/**
 	 * Get scg label
 	 */
-	public String getSpecimenCollectionGroupLabel(ClientInfo clientInfo, Object domainobject) throws ApplicationException
+	public String getSpecimenCollectionGroupLabel(ClientInfo clientInfo, Object domainobject)
+			throws ApplicationException
 	{
 		/*
 		 * method name for get next SCG id
 		 */
 		String methodName = "delegateGetSpecimenCollectionGroupLabel";
 		// calls the caTissue delegator
-		String label = (String) callDelegator(methodName,clientInfo,domainobject);
+		String label = (String) callDelegator(methodName, clientInfo, domainobject);
 		return label;
 	}
-	
+
 	/**
 	 * Get default value for key
 	 */
@@ -383,10 +395,10 @@ public Object createObject(ClientInfo clientInfo, Object domainobject) throws Ap
 		 */
 		String methodName = "delegateGetDefaultValue";
 		// calls the caTissue delegator
-		String value = (String) callDelegator(methodName,clientInfo,key);
+		String value = (String) callDelegator(methodName, clientInfo, key);
 		return value;
 	}
-	
+
 	/**
 	 * Calls the specified method of caTissue Delegator class which is used to delegate call to actual biz logic.
 	 * @param methodName method name of catissue delegator class
@@ -396,7 +408,8 @@ public Object createObject(ClientInfo clientInfo, Object domainobject) throws Ap
 	 * @throws ApplicationException - throw application exception with message
 	 * @see ApplicationException
 	 */
-	private Object callDelegator(String methodName,ClientInfo clientInfo,Object domainObject) throws ApplicationException
+	private Object callDelegator(String methodName, ClientInfo clientInfo, Object domainObject)
+			throws ApplicationException
 	{
 		// specify the className of caTissue core delgator class
 		final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
@@ -405,9 +418,9 @@ public Object createObject(ClientInfo clientInfo, Object domainobject) throws Ap
 		{
 			Class delegator = Class.forName(DELEGATOR_CLASS);
 			Object obj = delegator.newInstance();
-			Method method = getMethod(delegator,methodName);
-			Object[] args = {userId,domainObject};
-			domainObject = method.invoke(obj,args);
+			Method method = getMethod(delegator, methodName);
+			Object[] args = {userId, domainObject};
+			domainObject = method.invoke(obj, args);
 		}
 		catch (ClassNotFoundException e)
 		{
@@ -417,10 +430,7 @@ public Object createObject(ClientInfo clientInfo, Object domainobject) throws Ap
 		{
 			throw handleException(e);
 		}
-		catch (IllegalArgumentException e)
-		{
-			throw handleException(e);
-		}
+
 		catch (InvocationTargetException e)
 		{
 			throw handleException(e);
@@ -429,10 +439,7 @@ public Object createObject(ClientInfo clientInfo, Object domainobject) throws Ap
 		{
 			throw handleException(e);
 		}
-		catch (Exception e)
-		{
-			throw handleException(e);
-		}
+
 		return domainObject;
 	}
 
@@ -452,8 +459,7 @@ public Object createObject(ClientInfo clientInfo, Object domainobject) throws Ap
 		}
 		return userSession.getUserId();
 	}
-	
-	
+
 	/**
 	 * Handles exception & returns wrapped application exception from specified exception.
 	 * @param throwable throwable
@@ -483,7 +489,7 @@ public Object createObject(ClientInfo clientInfo, Object domainobject) throws Ap
 		Method method[] = objClass.getMethods();
 		for (int i = 0; i < method.length; i++)
 		{
-			if(method[i].getName().equals(methodName))
+			if (method[i].getName().equals(methodName))
 				return method[i];
 		}
 		return null;
@@ -496,54 +502,85 @@ public Object createObject(ClientInfo clientInfo, Object domainobject) throws Ap
 	 * @return list of resulted domain objects
 	 * @throws ApplicationException
 	 */
-	private List callSearchFilter(List list,ClientInfo clientInfo) throws ApplicationException
+	private List callSearchFilter(List list, ClientInfo clientInfo) throws ApplicationException
 	{
 		String methodName = "delegateSearchFilter";
-		list = (List) callDelegator(methodName,clientInfo,list);
+		list = (List) callDelegator(methodName, clientInfo, list);
 		return list;
 	}
+
 	/**
 	 * TThis will register particiant with empi
 	 */
 	public void registerParticipant(ClientInfo clientInfo, Object object, Long cpid, String userName)
-    throws ApplicationException
-    {
-        /*
-         * method name for to retrieve matching participant
-         */
-        String methodName = "delegateRegisterParticipant";
-        // calls the caTissue delegator
-        final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
-        String userId = getUserId(clientInfo);
-        System.out.println("userId*******::"+userId);
-        try
-        {
-            Class delegator = Class.forName(DELEGATOR_CLASS);
-            Object obj = delegator.newInstance();            
-            Method method = getMethod(delegator, methodName);            
-            Object[] args = {object,cpid,userId};
-            object = method.invoke(obj, args);
-        }
-        catch (ClassNotFoundException e)
-        {
-            throw handleException(e);
-        }
-        catch (IllegalAccessException e)
-        {
-            throw handleException(e);
-        }
-        catch (IllegalArgumentException e)
-        {
-            throw handleException(e);
-        }
-        catch (InstantiationException e)
-        {
-            throw handleException(e);
-        }
-        catch (InvocationTargetException e)
-        {
-            throw handleException(e);
-        }
-    }
+			throws ApplicationException
+	{
+		/*
+		 * method name for to retrieve matching participant
+		 */
+		String methodName = "delegateRegisterParticipant";
+		// calls the caTissue delegator
+		final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
+		String userId = getUserId(clientInfo);
+		System.out.println("userId*******::" + userId);
+		try
+		{
+			Class delegator = Class.forName(DELEGATOR_CLASS);
+			Object obj = delegator.newInstance();
+			Method method = getMethod(delegator, methodName);
+			Object[] args = {object, cpid, userId};
+			object = method.invoke(obj, args);
+		}
+		catch (ClassNotFoundException e)
+		{
+			throw handleException(e);
+		}
+		catch (IllegalAccessException e)
+		{
+			throw handleException(e);
+		}
+		catch (IllegalArgumentException e)
+		{
+			throw handleException(e);
+		}
+		catch (InstantiationException e)
+		{
+			throw handleException(e);
+		}
+		catch (InvocationTargetException e)
+		{
+			throw handleException(e);
+		}
+	}
+
+   /* Regestring clinportal patient to EMPI */
+	public void registerParticipantToEMPI(ClientInfo clientInfo, Object domainObject)
+			throws ApplicationException
+	{
+		try
+		{
+			String methodName = "delegateRegisterParticipantToEMPI";
+			callDelegator(methodName, clientInfo, domainObject);
+		}
+		catch (IllegalArgumentException e)
+		{
+			throw handleException(e);
+		}
+	}
+
+     /* Updating the clinportal participant with eMPI Id */
+	public void updateParticipantWithEMPIDetails(ClientInfo clientInfo, String demographicXML)
+			throws ApplicationException
+	{
+		try
+		{
+			String methodName = "delegateUpdateParticipantWithEMPIDetails";
+			callDelegator(methodName, clientInfo, demographicXML);
+		}
+		catch (IllegalArgumentException e)
+		{
+			throw handleException(e);
+		}
+	}
 
 }
