@@ -1,3 +1,4 @@
+
 package gov.nih.nci.system.comm.client;
 
 import gov.nih.nci.common.util.ClientInfo;
@@ -24,16 +25,16 @@ import org.springframework.core.io.InputStreamResource;
 public class ApplicationServiceClientImpl extends ApplicationService
 {
 
-	private static ApplicationServiceProxy	applicationServiceProxy;
+	private static ApplicationServiceProxy applicationServiceProxy;
 	private static ApplicationService applicationService;
 	private static int recordsCount;
 	private static int maxRecordsCount;
-	private static boolean caseSensitivity;	
-	
-	private static Logger log= Logger.getLogger(ApplicationServiceClientImpl.class.getName());	
+	private static boolean caseSensitivity;
+
+	private static Logger log = Logger.getLogger(ApplicationServiceClientImpl.class.getName());
 
 	/**
-	 * Default Constructor. Obtains the Remote instance of {@link 
+	 * Default Constructor. Obtains the Remote instance of {@link
 	 * ApplicationService} and caches it.
 	 */
 	public ApplicationServiceClientImpl()
@@ -41,13 +42,14 @@ public class ApplicationServiceClientImpl extends ApplicationService
 		try
 		{
 			Properties _properties = new Properties();
-			_properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("CORESystem.properties"));
+			_properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(
+					"CORESystem.properties"));
 			String rsPerQuery = _properties.getProperty("RECORDSPERQUERY");
 			String maxRsPerQuery = _properties.getProperty("MAXRECORDSPERQUERY");
-			
+
 			if (rsPerQuery != null)
 			{
-				log.info("RECORDSPERQUERY property found : "+rsPerQuery);
+				log.info("RECORDSPERQUERY property found : " + rsPerQuery);
 				recordsCount = new Integer(rsPerQuery).intValue();
 			}
 			else
@@ -57,7 +59,7 @@ public class ApplicationServiceClientImpl extends ApplicationService
 			}
 			if (maxRsPerQuery != null)
 			{
-				log.info("MAXRECORDSPERQUERY property found : "+maxRsPerQuery);
+				log.info("MAXRECORDSPERQUERY property found : " + maxRsPerQuery);
 				maxRecordsCount = new Integer(maxRsPerQuery).intValue();
 			}
 			else
@@ -75,7 +77,7 @@ public class ApplicationServiceClientImpl extends ApplicationService
 			log.error("Exception: ", ex);
 		}
 	}
-	
+
 	//@Override
 	protected ApplicationService getBeanInstance()
 	{
@@ -91,27 +93,32 @@ public class ApplicationServiceClientImpl extends ApplicationService
 		ClientSession.getInstance(applicationServiceProxy);
 		return new ApplicationServiceClientImpl();
 	}
-	
+
 	private static ApplicationServiceProxy getRemoteServiceFromPath(String URL)
 	{
-		String xmlFileString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE beans PUBLIC \"-//SPRING//DTD BEAN//EN\" \"http://www.springframework.org/dtd/spring-beans.dtd\"><beans><bean id=\"remoteService\" class=\"org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean\"><property name=\"serviceUrl\"><value>" + URL + "</value></property><property name=\"serviceInterface\"><value>gov.nih.nci.system.comm.common.ApplicationServiceProxy</value></property> <property name=\"httpInvokerRequestExecutor\"><bean class=\"org.springframework.remoting.httpinvoker.CommonsHttpInvokerRequestExecutor\"/></property></bean></beans>";
+		String xmlFileString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE beans PUBLIC \"-//SPRING//DTD BEAN//EN\" \"http://www.springframework.org/dtd/spring-beans.dtd\"><beans><bean id=\"remoteService\" class=\"org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean\"><property name=\"serviceUrl\"><value>"
+				+ URL
+				+ "</value></property><property name=\"serviceInterface\"><value>gov.nih.nci.system.comm.common.ApplicationServiceProxy</value></property> <property name=\"httpInvokerRequestExecutor\"><bean class=\"org.springframework.remoting.httpinvoker.CommonsHttpInvokerRequestExecutor\"/></property></bean></beans>";
 		GenericApplicationContext ctx = new GenericApplicationContext();
 		XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);
 		InputStream inputStream = new ByteArrayInputStream(xmlFileString.getBytes());
 		InputStreamResource inputStreamResource = new InputStreamResource(inputStream);
 		xmlReader.loadBeanDefinitions(inputStreamResource);
 		ctx.refresh();
-		ApplicationServiceProxy applicationServiceProxy = (ApplicationServiceProxy) ctx.getBean(Constant.REMOTE_APPLICATION_SERVICE);
+		ApplicationServiceProxy applicationServiceProxy = (ApplicationServiceProxy) ctx
+				.getBean(Constant.REMOTE_APPLICATION_SERVICE);
 		return applicationServiceProxy;
 	}
-	
+
 	private static ApplicationServiceProxy getRemoteServiceFromClassPath()
 	{
-		ApplicationContext ctx = new ClassPathXmlApplicationContext(Constant.REMOTE_SERVICE_FILE_NAME);
-		ApplicationServiceProxy applicationServiceProxy = (ApplicationServiceProxy) ctx.getBean(Constant.REMOTE_APPLICATION_SERVICE);
+		ApplicationContext ctx = new ClassPathXmlApplicationContext(
+				Constant.REMOTE_SERVICE_FILE_NAME);
+		ApplicationServiceProxy applicationServiceProxy = (ApplicationServiceProxy) ctx
+				.getBean(Constant.REMOTE_APPLICATION_SERVICE);
 		return applicationServiceProxy;
 	}
-	
+
 	private ClientInfo getClientInfo()
 	{
 		ClientSession cs = ClientSession.getInstance();
@@ -129,7 +136,9 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	public void setRecordsCount(int recordsCount) throws ApplicationException
 	{
 		if (recordsCount > maxRecordsCount)
-			throw new ApplicationException("Illegal Value for RecordsCount: RECORDSPERQUERY cannot be greater than MAXRECORDSPERQUERY. RECORDSPERQUERY = " + recordsCount + " MAXRECORDSPERQUERY = " + maxRecordsCount);
+			throw new ApplicationException(
+					"Illegal Value for RecordsCount: RECORDSPERQUERY cannot be greater than MAXRECORDSPERQUERY. RECORDSPERQUERY = "
+							+ recordsCount + " MAXRECORDSPERQUERY = " + maxRecordsCount);
 		else
 			ApplicationServiceClientImpl.recordsCount = recordsCount;
 	}
@@ -177,15 +186,18 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#query(java.lang.Object, int, int, java.lang.String)
 	 */
-	public List query(Object criteria, int firstRow, int resultsPerQuery, String targetClassName) throws ApplicationException
+	public List query(Object criteria, int firstRow, int resultsPerQuery, String targetClassName)
+			throws ApplicationException
 	{
-		return applicationServiceProxy.query(getClientInfo(), criteria, firstRow, resultsPerQuery, targetClassName);
+		return applicationServiceProxy.query(getClientInfo(), criteria, firstRow, resultsPerQuery,
+				targetClassName);
 	}
 
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#query(org.hibernate.criterion.DetachedCriteria, java.lang.String)
 	 */
-	public List query(DetachedCriteria detachedCriteria, String targetClassName) throws ApplicationException
+	public List query(DetachedCriteria detachedCriteria, String targetClassName)
+			throws ApplicationException
 	{
 		return applicationServiceProxy.query(getClientInfo(), detachedCriteria, targetClassName);
 	}
@@ -201,19 +213,19 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#query(gov.nih.nci.query.cql.CQLQuery, java.lang.String)
 	 */
-//	public List query(CQLQuery cqlQuery, String targetClassName) throws ApplicationException
-//	{
-//		return applicationServiceProxy.query(getClientInfo(), cqlQuery, targetClassName);
-//	}
+	//	public List query(CQLQuery cqlQuery, String targetClassName) throws ApplicationException
+	//	{
+	//		return applicationServiceProxy.query(getClientInfo(), cqlQuery, targetClassName);
+	//	}
 
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getQueryRowCount(java.lang.Object, java.lang.String)
 	 */
-	public int getQueryRowCount(Object criteria, String targetClassName) throws ApplicationException
+	public int getQueryRowCount(Object criteria, String targetClassName)
+			throws ApplicationException
 	{
 		return applicationServiceProxy.getQueryRowCount(getClientInfo(), criteria, targetClassName);
 	}
-
 
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getObjects(java.lang.Object)
@@ -224,8 +236,9 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	{
 		return applicationServiceProxy.getObjects(getClientInfo(), object);
 	}
+
 	/*@WRITABLE_API_END@*/
-	
+
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#createObject(java.lang.Object)
 	 */
@@ -235,8 +248,9 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	{
 		return applicationServiceProxy.createObject(getClientInfo(), object);
 	}
+
 	/*@WRITABLE_API_END@*/
-	
+
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#updateObject(java.lang.Object)
 	 */
@@ -246,8 +260,9 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	{
 		return applicationServiceProxy.updateObject(getClientInfo(), object);
 	}
+
 	/*@WRITABLE_API_END@*/
-	
+
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#removeObject(java.lang.Object)
 	 */
@@ -257,6 +272,7 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	{
 		applicationServiceProxy.removeObject(getClientInfo(), object);
 	}
+
 	/*@WRITABLE_API_END@*/
 
 	/**
@@ -266,15 +282,16 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	{
 		return applicationServiceProxy.getParticipantMatchingObects(getClientInfo(), domainObject);
 	}
-	
+
 	/**
 	 * Get scg label
 	 */
 	public String getSpecimenCollectionGroupLabel(Object domainObject) throws ApplicationException
 	{
-		return applicationServiceProxy.getSpecimenCollectionGroupLabel(getClientInfo(), domainObject);
+		return applicationServiceProxy.getSpecimenCollectionGroupLabel(getClientInfo(),
+				domainObject);
 	}
-	
+
 	/**
 	 * Get default value for key
 	 */
@@ -283,10 +300,19 @@ public class ApplicationServiceClientImpl extends ApplicationService
 		return applicationServiceProxy.getDefaultValue(getClientInfo(), key);
 	}
 
-   
-    public void registerParticipant(Object object, Long cpid, String userName)
-            throws ApplicationException
-    {
-        applicationServiceProxy.registerParticipant(getClientInfo(), object, cpid, userName);
-    }
+	public void registerParticipant(Object object, Long cpid, String userName)
+			throws ApplicationException
+	{
+		applicationServiceProxy.registerParticipant(getClientInfo(), object, cpid, userName);
+	}
+
+	public void registerParticipantToEMPI(Object object) throws ApplicationException
+	{
+		applicationServiceProxy.registerParticipantToEMPI(getClientInfo(), object);
+	}
+
+	public void updateParticipantWithEMPIDetails(String demographicXML) throws ApplicationException
+	{
+		applicationServiceProxy.updateParticipantWithEMPIDetails(getClientInfo(),demographicXML);
+	}
 }
