@@ -1,18 +1,16 @@
 
 package gov.nih.nci.system.applicationservice.impl;
 
-import gov.nih.nci.common.util.Constant;
 import gov.nih.nci.common.util.HQLCriteria;
 import gov.nih.nci.common.util.SecurityConfiguration;
 import gov.nih.nci.system.applicationservice.ApplicationException;
 import gov.nih.nci.system.applicationservice.ApplicationService;
-import gov.nih.nci.system.applicationservice.AuthorizationException;
 import gov.nih.nci.system.dao.WritableDAO;
 import gov.nih.nci.system.query.cql.CQLQuery;
 import gov.nih.nci.system.server.mgmt.SecurityEnabler;
 
 import java.util.List;
-import java.util.StringTokenizer;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.DetachedCriteria;
@@ -338,12 +336,6 @@ public class ApplicationServiceImpl extends ApplicationService
 		return null;
 	}
 
-	public void registerParticipant(Object object, Long cpid, String userName)
-			throws ApplicationException
-	{
-
-	}
-
 	public void registerParticipantToEMPI(Object object) throws ApplicationException
 	{
 
@@ -353,5 +345,21 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 
 	}
+
+    public Object registerParticipant(Object object, Long cpid,
+            String userName) throws ApplicationException
+    {
+        return null;
+    }
+
+    public void associateVisitAndScg(String visitId,String scgId) throws ApplicationException
+    {
+
+    }
+
+    public Object getClinportalUrlIds(Map<String,Long> map)  throws ApplicationException
+    {
+        return null;
+    }
 
 }

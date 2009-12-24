@@ -2,10 +2,10 @@ package gov.nih.nci.system.comm.common;
 
 import gov.nih.nci.common.util.ClientInfo;
 import gov.nih.nci.common.util.HQLCriteria;
-import gov.nih.nci.system.query.cql.CQLQuery;
 import gov.nih.nci.system.applicationservice.ApplicationException;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.criterion.DetachedCriteria;
 
@@ -66,11 +66,15 @@ public interface ApplicationServiceProxy
 	 */
 	public String getDefaultValue(ClientInfo clientInfo, String key) throws ApplicationException;
 
-	public abstract void registerParticipant(ClientInfo clientInfo,Object object, Long cpid,String userName) throws ApplicationException;
-
 	public abstract void registerParticipantToEMPI(ClientInfo clientInfo,Object object) throws ApplicationException;
 
 	public abstract void updateParticipantWithEMPIDetails(ClientInfo clientInfo,String demographicXML) throws ApplicationException;
+
+    public abstract Object registerParticipant(ClientInfo clientInfo,Object object, Long cpid,String userName) throws ApplicationException;
+
+    public abstract  void associateVisitAndScg(ClientInfo clientInfo,String visitId,String scgId) throws ApplicationException;
+
+    public abstract Object getClinportalUrlIds(ClientInfo clientInfo,Map<String,Long> map)  throws ApplicationException;
 
 
 }
