@@ -16,6 +16,7 @@ import gov.nih.nci.system.server.mgmt.UserSession;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.context.ApplicationContext;
@@ -512,7 +513,7 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	/**
 	 * TThis will register particiant with empi
 	 */
-	public void registerParticipant(ClientInfo clientInfo, Object object, Long cpid, String userName)
+	public Object registerParticipant(ClientInfo clientInfo, Object object, Long cpid, String userName)
 			throws ApplicationException
 	{
 		/*
@@ -551,6 +552,7 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 		{
 			throw handleException(e);
 		}
+		return object;
 	}
 
    /* Regestring clinportal patient to EMPI */
@@ -582,5 +584,50 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 			throw handleException(e);
 		}
 	}
+
+	   public  void associateVisitAndScg(ClientInfo clientInfo,String visitId,String scgId) throws ApplicationException
+	    {
+	        String methodName = "associateVisitAndScg";
+	        // calls the caTissue delegator
+	        final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
+	        String userId = getUserId(clientInfo);
+	        System.out.println("userId*******::"+userId);
+	        try
+	        {
+	            Class delegator = Class.forName(DELEGATOR_CLASS);
+	            Object obj = delegator.newInstance();
+	            Method method = getMethod(delegator, methodName);
+	            Object[] args = {visitId,scgId};
+	            method.invoke(obj, args);
+	        }
+	        catch (ClassNotFoundException e)
+	        {
+	            throw handleException(e);
+	        }
+	        catch (IllegalAccessException e)
+	        {
+	            throw handleException(e);
+	        }
+	        catch (IllegalArgumentException e)
+	        {
+	            throw handleException(e);
+	        }
+	        catch (InstantiationException e)
+	        {
+	            throw handleException(e);
+	        }
+	        catch (InvocationTargetException e)
+	        {
+	            throw handleException(e);
+	        }
+
+	    }
+
+
+	    public Object getClinportalUrlIds(ClientInfo clientInfo,Map<String,Long> map)  throws ApplicationException
+	    {
+	        String methodName = "getClinportalUrlIds";
+	        return callDelegator(methodName,clientInfo,map);
+	    }
 
 }

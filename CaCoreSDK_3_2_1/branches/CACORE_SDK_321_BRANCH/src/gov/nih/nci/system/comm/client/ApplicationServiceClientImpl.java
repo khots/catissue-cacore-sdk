@@ -12,6 +12,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -300,11 +301,6 @@ public class ApplicationServiceClientImpl extends ApplicationService
 		return applicationServiceProxy.getDefaultValue(getClientInfo(), key);
 	}
 
-	public void registerParticipant(Object object, Long cpid, String userName)
-			throws ApplicationException
-	{
-		applicationServiceProxy.registerParticipant(getClientInfo(), object, cpid, userName);
-	}
 
 	public void registerParticipantToEMPI(Object object) throws ApplicationException
 	{
@@ -315,4 +311,23 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	{
 		applicationServiceProxy.updateParticipantWithEMPIDetails(getClientInfo(),demographicXML);
 	}
+
+
+    public Object registerParticipant(Object object, Long cpid, String userName)
+            throws ApplicationException
+    {
+       return applicationServiceProxy.registerParticipant(getClientInfo(), object, cpid, userName);
+    }
+
+    public  void associateVisitAndScg(String visitId,String scgId) throws ApplicationException
+    {
+        applicationServiceProxy.associateVisitAndScg(getClientInfo(), visitId, scgId);
+    }
+
+
+    public Object getClinportalUrlIds(Map<String,Long> map)  throws ApplicationException
+    {
+        return applicationServiceProxy.getClinportalUrlIds(getClientInfo(), map);
+    }
+
 }

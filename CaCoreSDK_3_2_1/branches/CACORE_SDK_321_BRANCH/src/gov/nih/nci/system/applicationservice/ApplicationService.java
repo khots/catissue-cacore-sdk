@@ -8,9 +8,9 @@
 package gov.nih.nci.system.applicationservice;
 
 import gov.nih.nci.common.util.HQLCriteria;
-import gov.nih.nci.system.query.cql.CQLQuery;
 
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.criterion.DetachedCriteria;
 
@@ -115,12 +115,16 @@ public abstract class ApplicationService
 	 * @param userName
 	 * @throws ApplicationException
 	 */
-	public abstract void registerParticipant(Object object, Long cpid, String userName)
-			throws ApplicationException;
-
 	public abstract void registerParticipantToEMPI(Object object)throws ApplicationException;
 
 	public abstract void updateParticipantWithEMPIDetails(String demographicXML)throws ApplicationException;
+
+	public abstract Object registerParticipant(Object object, Long cpid,String userName) throws ApplicationException;
+
+    public abstract void associateVisitAndScg(String visitId,String scgId) throws ApplicationException;
+
+    public abstract Object getClinportalUrlIds(Map<String,Long> map)  throws ApplicationException;
+
 
 
 }
