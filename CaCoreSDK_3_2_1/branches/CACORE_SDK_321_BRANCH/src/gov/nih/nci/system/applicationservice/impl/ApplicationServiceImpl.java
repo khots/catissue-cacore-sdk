@@ -352,14 +352,8 @@ public class ApplicationServiceImpl extends ApplicationService
         return null;
     }
 
-    public void associateVisitAndScg(String visitId,String scgId) throws ApplicationException
-    {
-
-    }
-
     public Object getClinportalUrlIds(Map<String,Long> map)  throws ApplicationException
     {
         return null;
     }
-
 }

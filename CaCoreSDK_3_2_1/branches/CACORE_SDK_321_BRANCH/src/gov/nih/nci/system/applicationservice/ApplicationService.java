@@ -121,10 +121,5 @@ public abstract class ApplicationService
 
 	public abstract Object registerParticipant(Object object, Long cpid,String userName) throws ApplicationException;
 
-    public abstract void associateVisitAndScg(String visitId,String scgId) throws ApplicationException;
-
     public abstract Object getClinportalUrlIds(Map<String,Long> map)  throws ApplicationException;
-
-
-
 }

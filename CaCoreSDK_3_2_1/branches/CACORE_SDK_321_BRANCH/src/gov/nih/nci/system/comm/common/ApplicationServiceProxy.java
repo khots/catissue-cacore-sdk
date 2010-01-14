@@ -72,9 +72,6 @@ public interface ApplicationServiceProxy
 
     public abstract Object registerParticipant(ClientInfo clientInfo,Object object, Long cpid,String userName) throws ApplicationException;
 
-    public abstract  void associateVisitAndScg(ClientInfo clientInfo,String visitId,String scgId) throws ApplicationException;
-
     public abstract Object getClinportalUrlIds(ClientInfo clientInfo,Map<String,Long> map)  throws ApplicationException;
-
 
 }
