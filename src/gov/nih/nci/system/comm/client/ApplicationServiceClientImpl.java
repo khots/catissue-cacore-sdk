@@ -319,12 +319,6 @@ public class ApplicationServiceClientImpl extends ApplicationService
        return applicationServiceProxy.registerParticipant(getClientInfo(), object, cpid, userName);
     }
 
-    public  void associateVisitAndScg(String visitId,String scgId) throws ApplicationException
-    {
-        applicationServiceProxy.associateVisitAndScg(getClientInfo(), visitId, scgId);
-    }
-
-
     public Object getClinportalUrlIds(Map<String,Long> map)  throws ApplicationException
     {
         return applicationServiceProxy.getClinportalUrlIds(getClientInfo(), map);
