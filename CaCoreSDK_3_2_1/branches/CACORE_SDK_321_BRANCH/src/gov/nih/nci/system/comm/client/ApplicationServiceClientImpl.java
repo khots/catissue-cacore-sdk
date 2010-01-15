@@ -23,15 +23,29 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.io.InputStreamResource;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApplicationServiceClientImpl.
+ */
 public class ApplicationServiceClientImpl extends ApplicationService
 {
 
+	/** The application service proxy. */
 	private static ApplicationServiceProxy applicationServiceProxy;
+
+	/** The application service. */
 	private static ApplicationService applicationService;
+
+	/** The records count. */
 	private static int recordsCount;
+
+	/** The max records count. */
 	private static int maxRecordsCount;
+
+	/** The case sensitivity. */
 	private static boolean caseSensitivity;
 
+	/** The log. */
 	private static Logger log = Logger.getLogger(ApplicationServiceClientImpl.class.getName());
 
 	/**
@@ -80,6 +94,9 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	}
 
 	//@Override
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getBeanInstance()
+	 */
 	protected ApplicationService getBeanInstance()
 	{
 		applicationServiceProxy = getRemoteServiceFromClassPath();
@@ -88,6 +105,9 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	}
 
 	//@Override
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getBeanInstance(java.lang.String)
+	 */
 	protected ApplicationService getBeanInstance(String URL)
 	{
 		applicationServiceProxy = getRemoteServiceFromPath(URL);
@@ -95,6 +115,13 @@ public class ApplicationServiceClientImpl extends ApplicationService
 		return new ApplicationServiceClientImpl();
 	}
 
+	/**
+	 * Gets the remote service from path.
+	 *
+	 * @param URL the uRL
+	 *
+	 * @return the remote service from path
+	 */
 	private static ApplicationServiceProxy getRemoteServiceFromPath(String URL)
 	{
 		String xmlFileString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE beans PUBLIC \"-//SPRING//DTD BEAN//EN\" \"http://www.springframework.org/dtd/spring-beans.dtd\"><beans><bean id=\"remoteService\" class=\"org.springframework.remoting.httpinvoker.HttpInvokerProxyFactoryBean\"><property name=\"serviceUrl\"><value>"
@@ -111,6 +138,11 @@ public class ApplicationServiceClientImpl extends ApplicationService
 		return applicationServiceProxy;
 	}
 
+	/**
+	 * Gets the remote service from class path.
+	 *
+	 * @return the remote service from class path
+	 */
 	private static ApplicationServiceProxy getRemoteServiceFromClassPath()
 	{
 		ApplicationContext ctx = new ClassPathXmlApplicationContext(
@@ -120,6 +152,11 @@ public class ApplicationServiceClientImpl extends ApplicationService
 		return applicationServiceProxy;
 	}
 
+	/**
+	 * Gets the client info.
+	 *
+	 * @return the client info
+	 */
 	private ClientInfo getClientInfo()
 	{
 		ClientSession cs = ClientSession.getInstance();
@@ -277,7 +314,13 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	/*@WRITABLE_API_END@*/
 
 	/**
-	 * Participant lookup API
+	 * Participant lookup API.
+	 *
+	 * @param domainObject the domain object
+	 *
+	 * @return the participant matching obects
+	 *
+	 * @throws ApplicationException the application exception
 	 */
 	public List getParticipantMatchingObects(Object domainObject) throws ApplicationException
 	{
@@ -285,7 +328,13 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	}
 
 	/**
-	 * Get scg label
+	 * Get scg label.
+	 *
+	 * @param domainObject the domain object
+	 *
+	 * @return the specimen collection group label
+	 *
+	 * @throws ApplicationException the application exception
 	 */
 	public String getSpecimenCollectionGroupLabel(Object domainObject) throws ApplicationException
 	{
@@ -294,34 +343,60 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	}
 
 	/**
-	 * Get default value for key
+	 * Get default value for key.
+	 *
+	 * @param key the key
+	 *
+	 * @return the default value
+	 *
+	 * @throws ApplicationException the application exception
 	 */
 	public String getDefaultValue(String key) throws ApplicationException
 	{
 		return applicationServiceProxy.getDefaultValue(getClientInfo(), key);
 	}
 
-
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#registerParticipantToEMPI(java.lang.Object)
+	 */
 	public void registerParticipantToEMPI(Object object) throws ApplicationException
 	{
 		applicationServiceProxy.registerParticipantToEMPI(getClientInfo(), object);
 	}
 
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#updateParticipantWithEMPIDetails(java.lang.String)
+	 */
 	public void updateParticipantWithEMPIDetails(String demographicXML) throws ApplicationException
 	{
-		applicationServiceProxy.updateParticipantWithEMPIDetails(getClientInfo(),demographicXML);
+		applicationServiceProxy.updateParticipantWithEMPIDetails(getClientInfo(), demographicXML);
 	}
 
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#registerParticipant(java.lang.Object, java.lang.Long, java.lang.String)
+	 */
+	public Object registerParticipant(Object object, Long cpid, String userName)
+			throws ApplicationException
+	{
+		return applicationServiceProxy.registerParticipant(getClientInfo(), object, cpid, userName);
+	}
 
-    public Object registerParticipant(Object object, Long cpid, String userName)
-            throws ApplicationException
-    {
-       return applicationServiceProxy.registerParticipant(getClientInfo(), object, cpid, userName);
-    }
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getClinportalUrlIds(java.util.Map)
+	 */
+	public Object getClinportalUrlIds(Map<String, Long> map) throws ApplicationException
+	{
+		return applicationServiceProxy.getClinportalUrlIds(getClientInfo(), map);
+	}
 
-    public Object getClinportalUrlIds(Map<String,Long> map)  throws ApplicationException
-    {
-        return applicationServiceProxy.getClinportalUrlIds(getClientInfo(), map);
-    }
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getCaTissueLocalParticipantMatchingObects(java.lang.Object, java.lang.Long)
+	 */
+	public List getCaTissueLocalParticipantMatchingObects(Object domainObject)
+			throws ApplicationException
+	{
+		return applicationServiceProxy.getCaTissueLocalParticipantMatchingObects(getClientInfo(),
+				domainObject);
+	}
 
 }

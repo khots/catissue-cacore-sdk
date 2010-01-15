@@ -22,14 +22,21 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ApplicationServiceServerImpl.
+ */
 public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 {
 
+	/** The application service. */
 	private ApplicationService applicationService;
+
+	/** The security enabler. */
 	private SecurityEnabler securityEnabler;
 
 	/**
-	 * Default Constructor it takes in
+	 * Default Constructor it takes in.
 	 */
 	public ApplicationServiceServerImpl()
 	{
@@ -210,6 +217,9 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 		return applicationService.getQueryRowCount(criteria, targetClassName);
 	}
 
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#createObject(gov.nih.nci.common.util.ClientInfo, java.lang.Object)
+	 */
 	public Object createObject(ClientInfo clientInfo, Object domainobject)
 			throws ApplicationException
 	{
@@ -357,7 +367,14 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	}
 
 	/**
-	 * Participant lookup API
+	 * Participant lookup API.
+	 *
+	 * @param clientInfo the client info
+	 * @param domainobject the domainobject
+	 *
+	 * @return the participant matching obects
+	 *
+	 * @throws ApplicationException the application exception
 	 */
 	public List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject)
 			throws ApplicationException
@@ -372,7 +389,14 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	}
 
 	/**
-	 * Get scg label
+	 * Get scg label.
+	 *
+	 * @param clientInfo the client info
+	 * @param domainobject the domainobject
+	 *
+	 * @return the specimen collection group label
+	 *
+	 * @throws ApplicationException the application exception
 	 */
 	public String getSpecimenCollectionGroupLabel(ClientInfo clientInfo, Object domainobject)
 			throws ApplicationException
@@ -387,7 +411,14 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	}
 
 	/**
-	 * Get default value for key
+	 * Get default value for key.
+	 *
+	 * @param clientInfo the client info
+	 * @param key the key
+	 *
+	 * @return the default value
+	 *
+	 * @throws ApplicationException the application exception
 	 */
 	public String getDefaultValue(ClientInfo clientInfo, String key) throws ApplicationException
 	{
@@ -402,11 +433,15 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 
 	/**
 	 * Calls the specified method of caTissue Delegator class which is used to delegate call to actual biz logic.
+	 *
 	 * @param methodName method name of catissue delegator class
 	 * @param clientInfo client info object
 	 * @param domainObject domain object
+	 *
 	 * @return domain object
+	 *
 	 * @throws ApplicationException - throw application exception with message
+	 *
 	 * @see ApplicationException
 	 */
 	private Object callDelegator(String methodName, ClientInfo clientInfo, Object domainObject)
@@ -446,10 +481,13 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 
 	/**
 	 * Gets the user id from session manager.Here User Id will be like user name e.g. admin@admin.com
+	 *
 	 * @param clientInfo Client Info
+	 *
 	 * @return user id
+	 *
 	 * @throws ApplicationException - throws application exception
-	*/
+	 */
 	private String getUserId(ClientInfo clientInfo) throws ApplicationException
 	{
 		SessionManager sessionManager = SessionManager.getInstance();
@@ -463,8 +501,11 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 
 	/**
 	 * Handles exception & returns wrapped application exception from specified exception.
+	 *
 	 * @param throwable throwable
+	 *
 	 * @return application exception object wrapped with message.
+	 *
 	 * @see ApplicationException
 	 */
 	private ApplicationException handleException(Throwable throwable)
@@ -481,8 +522,10 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 
 	/**
 	 * Gets the specified method from a Class's methods.
+	 *
 	 * @param objClass object class
 	 * @param methodName method name
+	 *
 	 * @return method
 	 */
 	private Method getMethod(Class objClass, String methodName)
@@ -498,10 +541,13 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 
 	/**
 	 * Call search filter on caTissuecore delegator.Call <code>delegateSearchFilter</code> of caTissueCore delegator.
-	 * @param list
-	 * @param clientInfo
+	 *
+	 * @param list the list
+	 * @param clientInfo the client info
+	 *
 	 * @return list of resulted domain objects
-	 * @throws ApplicationException
+	 *
+	 * @throws ApplicationException the application exception
 	 */
 	private List callSearchFilter(List list, ClientInfo clientInfo) throws ApplicationException
 	{
@@ -511,10 +557,19 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	}
 
 	/**
-	 * TThis will register particiant with empi
+	 * TThis will register particiant with empi.
+	 *
+	 * @param clientInfo the client info
+	 * @param object the object
+	 * @param cpid the cpid
+	 * @param userName the user name
+	 *
+	 * @return the object
+	 *
+	 * @throws ApplicationException the application exception
 	 */
-	public Object registerParticipant(ClientInfo clientInfo, Object object, Long cpid, String userName)
-			throws ApplicationException
+	public Object registerParticipant(ClientInfo clientInfo, Object object, Long cpid,
+			String userName) throws ApplicationException
 	{
 		/*
 		 * method name for to retrieve matching participant
@@ -555,7 +610,10 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 		return object;
 	}
 
-   /* Regestring clinportal patient to EMPI */
+	/* Regestring clinportal patient to EMPI */
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#registerParticipantToEMPI(gov.nih.nci.common.util.ClientInfo, java.lang.Object)
+	 */
 	public void registerParticipantToEMPI(ClientInfo clientInfo, Object domainObject)
 			throws ApplicationException
 	{
@@ -570,7 +628,10 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 		}
 	}
 
-     /* Updating the clinportal participant with eMPI Id */
+	/* Updating the clinportal participant with eMPI Id */
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.comm.common.ApplicationServiceProxy#updateParticipantWithEMPIDetails(gov.nih.nci.common.util.ClientInfo, java.lang.String)
+	 */
 	public void updateParticipantWithEMPIDetails(ClientInfo clientInfo, String demographicXML)
 			throws ApplicationException
 	{
@@ -585,12 +646,84 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 		}
 	}
 
-	   /**
-	    * This method will return the required ids of clinportal on the basis caTissue objects id.
-	    */
-	    public Object getClinportalUrlIds(ClientInfo clientInfo,Map<String,Long> map)  throws ApplicationException
-	    {
-	        String methodName = "getClinportalUrlIds";
-	        return callDelegator(methodName,clientInfo,map);
-	    }
+	/**
+	 * This method will return the required ids of clinportal on the basis caTissue objects id.
+	 *
+	 * @param clientInfo the client info
+	 * @param map the map
+	 *
+	 * @return the clinportal url ids
+	 *
+	 * @throws ApplicationException the application exception
+	 */
+	public Object getClinportalUrlIds(ClientInfo clientInfo, Map<String, Long> map)
+			throws ApplicationException
+	{
+		String methodName = "getClinportalUrlIds";
+		return callDelegator(methodName, clientInfo, map);
+	}
+
+	/**
+	 * Call delegator forca tissue local participant match.
+	 *
+	 * @param methodName the method name
+	 * @param clientInfo the client info
+	 * @param domainObject the domain object
+	 * @param cpId the cp id
+	 *
+	 * @return the object
+	 *
+	 * @throws ApplicationException the application exception
+	 */
+	private Object callDelegatorForcaTissueLocalParticipantMatch(String methodName,
+			ClientInfo clientInfo, Object domainObject, Long cpId) throws ApplicationException
+	{
+		// specify the className of caTissue core delgator class
+		final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
+		String userId = getUserId(clientInfo);
+		try
+		{
+			Class delegator = Class.forName(DELEGATOR_CLASS);
+			Object obj = delegator.newInstance();
+			Method method = getMethod(delegator, methodName);
+			Object[] args = {userId, domainObject, cpId};
+			domainObject = method.invoke(obj, args);
+		}
+		catch (ClassNotFoundException e)
+		{
+			throw handleException(e);
+		}
+		catch (IllegalAccessException e)
+		{
+			throw handleException(e);
+		}
+
+		catch (InvocationTargetException e)
+		{
+			throw handleException(e);
+		}
+		catch (InstantiationException e)
+		{
+			throw handleException(e);
+		}
+
+		return domainObject;
+	}
+
+	/**
+	 *  fetch the caTissue local matched partiicpants.
+	 */
+	public List getCaTissueLocalParticipantMatchingObects(ClientInfo clientInfo,
+			Object domainobject) throws ApplicationException
+	{
+		/*
+		 * method name for to retrieve matching participant
+		 */
+		String methodName = "delegateGetCaTissueLocalParticipantMatchingObects";
+		// calls the caTissue delegator
+		List list = (List) callDelegator(methodName, clientInfo,
+				domainobject);
+		return list;
+	}
+
 }

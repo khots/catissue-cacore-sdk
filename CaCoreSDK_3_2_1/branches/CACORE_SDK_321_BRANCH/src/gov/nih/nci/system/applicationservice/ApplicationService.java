@@ -15,6 +15,8 @@ import java.util.Map;
 import org.hibernate.criterion.DetachedCriteria;
 
 /**
+ * The Class ApplicationService.
+ *
  * @author Kunal Modi (Ekagra Software Technologies Ltd.)
  *
  * TODO To change the template for this generated type comment go to Window -
@@ -122,4 +124,6 @@ public abstract class ApplicationService
 	public abstract Object registerParticipant(Object object, Long cpid,String userName) throws ApplicationException;
 
     public abstract Object getClinportalUrlIds(Map<String,Long> map)  throws ApplicationException;
+
+	public abstract List getCaTissueLocalParticipantMatchingObects(Object object) throws ApplicationException;
 }

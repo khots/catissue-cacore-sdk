@@ -15,7 +15,10 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.DetachedCriteria;
 
+// TODO: Auto-generated Javadoc
 /**
+ * The Class ApplicationServiceImpl.
+ *
  * @author Kunal Modi (Ekagra Software Technologies Ltd.)
  *
  * TODO To change the template for this generated type comment go to Window -
@@ -24,9 +27,16 @@ import org.hibernate.criterion.DetachedCriteria;
 public class ApplicationServiceImpl extends ApplicationService
 {
 
+	/** The log. */
 	private static Logger log = Logger.getLogger(ApplicationServiceImpl.class.getName());
+
+	/** The application service business impl. */
 	private ApplicationServiceBusinessImpl applicationServiceBusinessImpl = null;
+
+	/** The writable dao. */
 	private WritableDAO writableDAO = null;
+
+	/** The security enabler. */
 	private SecurityEnabler securityEnabler = null;
 
 	/**
@@ -151,6 +161,16 @@ public class ApplicationServiceImpl extends ApplicationService
 
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#query(gov.nih.nci.query.cql.CQLQuery, java.lang.String)
+	 */
+	/**
+	 * Query.
+	 *
+	 * @param cqlQuery the cql query
+	 * @param targetClassName the target class name
+	 *
+	 * @return the list
+	 *
+	 * @throws ApplicationException the application exception
 	 */
 	public List query(CQLQuery cqlQuery, String targetClassName) throws ApplicationException
 	{
@@ -312,7 +332,13 @@ public class ApplicationServiceImpl extends ApplicationService
 
 	/*@WRITABLE_API_END@*/
 	/**
-	 * Participant look up API
+	 * Participant look up API.
+	 *
+	 * @param object the object
+	 *
+	 * @return the participant matching obects
+	 *
+	 * @throws ApplicationException the application exception
 	 */
 	public List getParticipantMatchingObects(Object object) throws ApplicationException
 	{
@@ -321,7 +347,13 @@ public class ApplicationServiceImpl extends ApplicationService
 	}
 
 	/**
-	 * Get scg label
+	 * Get scg label.
+	 *
+	 * @param object the object
+	 *
+	 * @return the specimen collection group label
+	 *
+	 * @throws ApplicationException the application exception
 	 */
 	public String getSpecimenCollectionGroupLabel(Object object) throws ApplicationException
 	{
@@ -329,31 +361,59 @@ public class ApplicationServiceImpl extends ApplicationService
 	}
 
 	/**
-	 * Get default value for key
+	 * Get default value for key.
+	 *
+	 * @param key the key
+	 *
+	 * @return the default value
+	 *
+	 * @throws ApplicationException the application exception
 	 */
 	public String getDefaultValue(String key) throws ApplicationException
 	{
 		return null;
 	}
 
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#registerParticipantToEMPI(java.lang.Object)
+	 */
 	public void registerParticipantToEMPI(Object object) throws ApplicationException
 	{
 
 	}
 
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#updateParticipantWithEMPIDetails(java.lang.String)
+	 */
 	public void updateParticipantWithEMPIDetails(String demographicXML) throws ApplicationException
 	{
 
 	}
 
-    public Object registerParticipant(Object object, Long cpid,
-            String userName) throws ApplicationException
-    {
-        return null;
-    }
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#registerParticipant(java.lang.Object, java.lang.Long, java.lang.String)
+	 */
+	public Object registerParticipant(Object object, Long cpid, String userName)
+			throws ApplicationException
+	{
+		return null;
+	}
 
-    public Object getClinportalUrlIds(Map<String,Long> map)  throws ApplicationException
-    {
-        return null;
-    }
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getClinportalUrlIds(java.util.Map)
+	 */
+	public Object getClinportalUrlIds(Map<String, Long> map) throws ApplicationException
+	{
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getCaTissueLocalParticipantMatchingObects(java.lang.Object, java.lang.Long)
+	 */
+	public List getCaTissueLocalParticipantMatchingObects(Object object)
+			throws ApplicationException
+	{
+		return null;
+	}
+
 }
