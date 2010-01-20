@@ -416,4 +416,9 @@ public class ApplicationServiceImpl extends ApplicationService
 		return null;
 	}
 
+    public  Object getVisitRelatedEncounteredDate(Map<String,Long> map)  throws ApplicationException
+    {
+        return null;
+    }
+
 }

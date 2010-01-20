@@ -126,4 +126,7 @@ public abstract class ApplicationService
     public abstract Object getClinportalUrlIds(Map<String,Long> map)  throws ApplicationException;
 
 	public abstract List getCaTissueLocalParticipantMatchingObects(Object object) throws ApplicationException;
+
+    public abstract Object getVisitRelatedEncounteredDate(Map<String,Long> map)  throws ApplicationException;
+
 }
