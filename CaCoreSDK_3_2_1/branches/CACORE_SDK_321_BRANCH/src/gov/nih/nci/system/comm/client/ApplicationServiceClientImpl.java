@@ -399,4 +399,9 @@ public class ApplicationServiceClientImpl extends ApplicationService
 				domainObject);
 	}
 
+	public Object getVisitRelatedEncounteredDate(Map<String, Long> map) throws ApplicationException
+    {
+        return applicationServiceProxy.getVisitRelatedEncounteredDate(getClientInfo(), map);
+    }
+
 }

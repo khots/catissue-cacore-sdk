@@ -303,4 +303,6 @@ public interface ApplicationServiceProxy
 	 */
 	public abstract List getCaTissueLocalParticipantMatchingObects(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
 
+	public abstract Object getVisitRelatedEncounteredDate(ClientInfo clientInfo,Map<String,Long> map)  throws ApplicationException;
+
 }

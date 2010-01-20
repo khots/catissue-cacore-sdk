@@ -726,4 +726,10 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 		return list;
 	}
 
+    public Object getVisitRelatedEncounteredDate(ClientInfo clientInfo,Map<String, Long> map) throws ApplicationException
+    {
+        String methodName = "getVisitRelatedEncounteredDate";
+        return callDelegator(methodName, clientInfo, map);
+    }
+
 }
