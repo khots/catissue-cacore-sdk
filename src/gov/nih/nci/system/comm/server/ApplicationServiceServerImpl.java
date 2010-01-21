@@ -709,20 +709,18 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 
 		return domainObject;
 	}
-
 	/**
-	 *  fetch the caTissue local matched partiicpants.
+	 * Method for finding catissue local matched participants.
 	 */
 	public List getCaTissueLocalParticipantMatchingObects(ClientInfo clientInfo,
-			Object domainobject) throws ApplicationException
+			Object domainobject, Long cpId) throws ApplicationException
 	{
 		/*
 		 * method name for to retrieve matching participant
 		 */
 		String methodName = "delegateGetCaTissueLocalParticipantMatchingObects";
 		// calls the caTissue delegator
-		List list = (List) callDelegator(methodName, clientInfo,
-				domainobject);
+		List list = (List) callDelegatorForcaTissueLocalParticipantMatch(methodName, clientInfo, domainobject,cpId);
 		return list;
 	}
 

@@ -392,11 +392,12 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getCaTissueLocalParticipantMatchingObects(java.lang.Object, java.lang.Long)
 	 */
-	public List getCaTissueLocalParticipantMatchingObects(Object domainObject)
+	public List getCaTissueLocalParticipantMatchingObects(Object domainObject, Long cpId)
 			throws ApplicationException
 	{
+		// TODO Auto-generated method stub
 		return applicationServiceProxy.getCaTissueLocalParticipantMatchingObects(getClientInfo(),
-				domainObject);
+				domainObject, cpId);
 	}
 
 	public Object getVisitRelatedEncounteredDate(Map<String, Long> map) throws ApplicationException
