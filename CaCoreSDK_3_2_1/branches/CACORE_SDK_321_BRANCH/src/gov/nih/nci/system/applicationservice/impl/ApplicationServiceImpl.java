@@ -410,9 +410,10 @@ public class ApplicationServiceImpl extends ApplicationService
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getCaTissueLocalParticipantMatchingObects(java.lang.Object, java.lang.Long)
 	 */
-	public List getCaTissueLocalParticipantMatchingObects(Object object)
+	public List getCaTissueLocalParticipantMatchingObects(Object object, Long cpId)
 			throws ApplicationException
 	{
+		// TODO Auto-generated method stub
 		return null;
 	}
 
