@@ -402,7 +402,7 @@ public class ApplicationServiceImpl extends ApplicationService
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getClinportalUrlIds(java.util.Map)
 	 */
-	public Object getClinportalUrlIds(Map<String, Long> map) throws ApplicationException
+	public Object getClinportalUrlIds(Map map) throws ApplicationException
 	{
 		return null;
 	}
