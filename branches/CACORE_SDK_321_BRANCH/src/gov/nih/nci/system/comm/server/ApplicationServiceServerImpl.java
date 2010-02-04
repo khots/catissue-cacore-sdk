@@ -656,7 +656,7 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public Object getClinportalUrlIds(ClientInfo clientInfo, Map<String, Long> map)
+	public Object getClinportalUrlIds(ClientInfo clientInfo, Map map)
 			throws ApplicationException
 	{
 		String methodName = "getClinportalUrlIds";

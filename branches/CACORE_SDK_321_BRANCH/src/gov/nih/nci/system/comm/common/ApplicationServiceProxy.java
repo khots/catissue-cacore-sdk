@@ -288,7 +288,7 @@ public interface ApplicationServiceProxy
      *
      * @throws ApplicationException the application exception
      */
-    public abstract Object getClinportalUrlIds(ClientInfo clientInfo,Map<String,Long> map)  throws ApplicationException;
+    public abstract Object getClinportalUrlIds(ClientInfo clientInfo,Map map)  throws ApplicationException;
 
 	/**
 	 * Gets the ca tissue local participant matching obects.
