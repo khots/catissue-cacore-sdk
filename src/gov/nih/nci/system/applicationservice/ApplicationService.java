@@ -123,7 +123,7 @@ public abstract class ApplicationService
 
 	public abstract Object registerParticipant(Object object, Long cpid,String userName) throws ApplicationException;
 
-    public abstract Object getClinportalUrlIds(Map<String,Long> map)  throws ApplicationException;
+    public abstract Object getClinportalUrlIds(Map map)  throws ApplicationException;
 
 	public abstract List getCaTissueLocalParticipantMatchingObects(Object object,Long cpId) throws ApplicationException;
 
