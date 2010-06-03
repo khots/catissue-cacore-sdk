@@ -17,6 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.context.ApplicationContext;
@@ -379,13 +380,7 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	public List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject)
 			throws ApplicationException
 	{
-		/*
-		 * method name for to retrieve matching participant
-		 */
-		String methodName = "delegateGetParticipantMatchingObects";
-		// calls the caTissue delegator
-		List list = (List) callDelegator(methodName, clientInfo, domainobject);
-		return list;
+	    return getParticipantMatchingObects(clientInfo,domainobject,null);
 	}
 
 	/**
@@ -571,43 +566,11 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	public Object registerParticipant(ClientInfo clientInfo, Object object, Long cpid,
 			String userName) throws ApplicationException
 	{
-		/*
-		 * method name for to retrieve matching participant
-		 */
-		String methodName = "delegateRegisterParticipant";
-		// calls the caTissue delegator
-		final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
-		String userId = getUserId(clientInfo);
-		System.out.println("userId*******::" + userId);
-		try
-		{
-			Class delegator = Class.forName(DELEGATOR_CLASS);
-			Object obj = delegator.newInstance();
-			Method method = getMethod(delegator, methodName);
-			Object[] args = {object, cpid, userId};
-			object = method.invoke(obj, args);
-		}
-		catch (ClassNotFoundException e)
-		{
-			throw handleException(e);
-		}
-		catch (IllegalAccessException e)
-		{
-			throw handleException(e);
-		}
-		catch (IllegalArgumentException e)
-		{
-			throw handleException(e);
-		}
-		catch (InstantiationException e)
-		{
-			throw handleException(e);
-		}
-		catch (InvocationTargetException e)
-		{
-			throw handleException(e);
-		}
-		return object;
+	    /*
+         * method name for to retrieve matching participant
+         */
+        String methodName = "delegateRegisterParticipant";
+        return callDelegator(methodName, clientInfo,object,cpid);
 	}
 
 	/* Regestring clinportal patient to EMPI */
@@ -676,7 +639,7 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	 * @throws ApplicationException the application exception
 	 */
 	private Object callDelegatorForcaTissueLocalParticipantMatch(String methodName,
-			ClientInfo clientInfo, Object domainObject, Long cpId) throws ApplicationException
+			ClientInfo clientInfo, Object domainObject, Set<Long> protocolIdSet) throws ApplicationException
 	{
 		// specify the className of caTissue core delgator class
 		final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
@@ -686,7 +649,7 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 			Class delegator = Class.forName(DELEGATOR_CLASS);
 			Object obj = delegator.newInstance();
 			Method method = getMethod(delegator, methodName);
-			Object[] args = {userId, domainObject, cpId};
+			Object[] args = {userId, domainObject, protocolIdSet};
 			domainObject = method.invoke(obj, args);
 		}
 		catch (ClassNotFoundException e)
@@ -713,14 +676,14 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	 * Method for finding catissue local matched participants.
 	 */
 	public List getCaTissueLocalParticipantMatchingObects(ClientInfo clientInfo,
-			Object domainobject, Long cpId) throws ApplicationException
+			Object domainobject, Set protocolIdSet) throws ApplicationException
 	{
 		/*
 		 * method name for to retrieve matching participant
 		 */
 		String methodName = "delegateGetCaTissueLocalParticipantMatchingObects";
 		// calls the caTissue delegator
-		List list = (List) callDelegatorForcaTissueLocalParticipantMatch(methodName, clientInfo, domainobject,cpId);
+		List list = (List) callDelegatorForcaTissueLocalParticipantMatch(methodName, clientInfo, domainobject,protocolIdSet);
 		return list;
 	}
 
@@ -729,5 +692,68 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
         String methodName = "getVisitRelatedEncounteredDate";
         return callDelegator(methodName, clientInfo, map);
     }
+
+
+    /**
+     * Participant lookup API.
+     *
+     * @param clientInfo the client info
+     * @param domainobject the domainobject
+     *
+     * @return the participant matching obects
+     *
+     * @throws ApplicationException the application exception
+     */
+    public List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject,Long protocolId)
+            throws ApplicationException
+    {
+        /*
+         * method name for to retrieve matching participant
+         */
+        String methodName = "delegateGetParticipantMatchingObects";
+        // calls the caTissue delegator
+        //List list = (List) callDelegator(methodName, clientInfo, domainobject);
+        List list = (List) callDelegator(methodName, clientInfo, domainobject,protocolId);
+        return list;
+    }
+
+    private Object callDelegator(String methodName,
+            ClientInfo clientInfo, Object domainObject, Long protocolId) throws ApplicationException
+    {
+        // specify the className of caTissue core delgator class
+        final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
+        String userId = getUserId(clientInfo);
+        try
+        {
+            Class delegator = Class.forName(DELEGATOR_CLASS);
+            Object obj = delegator.newInstance();
+            Method method = getMethod(delegator, methodName);
+            Object[] args = {domainObject, protocolId, userId};
+            domainObject = method.invoke(obj, args);
+        }
+        catch (ClassNotFoundException e)
+        {
+            throw handleException(e);
+        }
+        catch (IllegalAccessException e)
+        {
+            throw handleException(e);
+        }
+        catch (IllegalArgumentException e)
+        {
+            throw handleException(e);
+        }
+        catch (InstantiationException e)
+        {
+            throw handleException(e);
+        }
+        catch (InvocationTargetException e)
+        {
+            throw handleException(e);
+        }
+
+        return domainObject;
+    }
+
 
 }

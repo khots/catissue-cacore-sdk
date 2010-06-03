@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.DetachedCriteria;
@@ -328,6 +329,22 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	}
 
 	/**
+     * Participant lookup API.
+     *
+     * @param domainObject the domain object
+     *
+     * @return the participant matching obects
+     *
+     * @throws ApplicationException the application exception
+     */
+    public List getParticipantMatchingObects(Object domainObject,Long protocolId) throws ApplicationException
+    {
+        return applicationServiceProxy.getParticipantMatchingObects(getClientInfo(), domainObject,protocolId);
+    }
+
+
+
+	/**
 	 * Get scg label.
 	 *
 	 * @param domainObject the domain object
@@ -392,12 +409,12 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getCaTissueLocalParticipantMatchingObects(java.lang.Object, java.lang.Long)
 	 */
-	public List getCaTissueLocalParticipantMatchingObects(Object domainObject, Long cpId)
+	public List getCaTissueLocalParticipantMatchingObects(Object domainObject,  Set<Long> cpIdSet)
 			throws ApplicationException
 	{
 		// TODO Auto-generated method stub
 		return applicationServiceProxy.getCaTissueLocalParticipantMatchingObects(getClientInfo(),
-				domainObject, cpId);
+				domainObject, cpIdSet);
 	}
 
 	public Object getVisitRelatedEncounteredDate(Map<String, Long> map) throws ApplicationException
