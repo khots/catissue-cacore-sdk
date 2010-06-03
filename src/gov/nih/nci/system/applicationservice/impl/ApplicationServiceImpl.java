@@ -11,6 +11,7 @@ import gov.nih.nci.system.server.mgmt.SecurityEnabler;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.DetachedCriteria;
@@ -347,6 +348,21 @@ public class ApplicationServiceImpl extends ApplicationService
 	}
 
 	/**
+     * Participant look up API.
+     *
+     * @param object the object
+     *
+     * @return the participant matching obects
+     *
+     * @throws ApplicationException the application exception
+     */
+    public List getParticipantMatchingObects(Object object,Long protocolId) throws ApplicationException
+    {
+
+        return null;
+    }
+
+	/**
 	 * Get scg label.
 	 *
 	 * @param object the object
@@ -410,7 +426,7 @@ public class ApplicationServiceImpl extends ApplicationService
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getCaTissueLocalParticipantMatchingObects(java.lang.Object, java.lang.Long)
 	 */
-	public List getCaTissueLocalParticipantMatchingObects(Object object, Long cpId)
+	public List getCaTissueLocalParticipantMatchingObects(Object object,  Set<Long> cpIdSet)
 			throws ApplicationException
 	{
 		// TODO Auto-generated method stub

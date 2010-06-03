@@ -6,6 +6,7 @@ import gov.nih.nci.system.applicationservice.ApplicationException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.criterion.DetachedCriteria;
 
@@ -301,8 +302,11 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-    public abstract List getCaTissueLocalParticipantMatchingObects(ClientInfo clientInfo, Object domainobject,Long cpId) throws ApplicationException;
+    public abstract List getCaTissueLocalParticipantMatchingObects(ClientInfo clientInfo, Object domainobject,Set<Long> cpIdSet) throws ApplicationException;
 
 	public abstract Object getVisitRelatedEncounteredDate(ClientInfo clientInfo,Map<String,Long> map)  throws ApplicationException;
+
+    public abstract List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject,Long protocolId) throws ApplicationException;
+
 
 }

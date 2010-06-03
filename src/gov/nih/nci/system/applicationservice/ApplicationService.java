@@ -11,6 +11,7 @@ import gov.nih.nci.common.util.HQLCriteria;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.criterion.DetachedCriteria;
 
@@ -125,7 +126,9 @@ public abstract class ApplicationService
 
     public abstract Object getClinportalUrlIds(Map map)  throws ApplicationException;
 
-	public abstract List getCaTissueLocalParticipantMatchingObects(Object object,Long cpId) throws ApplicationException;
+	public abstract List getCaTissueLocalParticipantMatchingObects(Object object,Set<Long> cpIdSet) throws ApplicationException;
+
+    public abstract List getParticipantMatchingObects(Object object,Long protocolId) throws ApplicationException;
 
     public abstract Object getVisitRelatedEncounteredDate(Map<String,Long> map)  throws ApplicationException;
 
