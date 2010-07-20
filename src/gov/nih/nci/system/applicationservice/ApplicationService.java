@@ -118,18 +118,26 @@ public abstract class ApplicationService
 	 * @param userName
 	 * @throws ApplicationException
 	 */
-	public abstract void registerParticipantToEMPI(Object object)throws ApplicationException;
+	public abstract void registerParticipantToEMPI(Object object) throws ApplicationException;
 
-	public abstract void updateParticipantWithEMPIDetails(String demographicXML)throws ApplicationException;
+	public abstract void updateParticipantWithEMPIDetails(String demographicXML)
+			throws ApplicationException;
 
-	public abstract Object registerParticipant(Object object, Long cpid,String userName) throws ApplicationException;
+	public abstract Object registerParticipant(Object object, Long cpid, String userName)
+			throws ApplicationException;
 
-    public abstract Object getClinportalUrlIds(Map map)  throws ApplicationException;
+	public abstract Object getClinportalUrlIds(Map map) throws ApplicationException;
 
-	public abstract List getCaTissueLocalParticipantMatchingObects(Object object,Set<Long> cpIdSet) throws ApplicationException;
+	public abstract List getCaTissueLocalParticipantMatchingObects(Object object, Set<Long> cpIdSet)
+			throws ApplicationException;
 
-    public abstract List getParticipantMatchingObects(Object object,Long protocolId) throws ApplicationException;
+	public abstract List getParticipantMatchingObects(Object object, Long protocolId)
+			throws ApplicationException;
 
-    public abstract Object getVisitRelatedEncounteredDate(Map<String,Long> map)  throws ApplicationException;
+	public abstract Object getVisitRelatedEncounteredDate(Map<String, Long> map)
+			throws ApplicationException;
+
+	public abstract void delegateUpdateMessageForEventEntry(Long messageId)
+			throws ApplicationException;
 
 }

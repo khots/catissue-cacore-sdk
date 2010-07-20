@@ -175,11 +175,15 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	public void setRecordsCount(int recordsCount) throws ApplicationException
 	{
 		if (recordsCount > maxRecordsCount)
+		{
 			throw new ApplicationException(
 					"Illegal Value for RecordsCount: RECORDSPERQUERY cannot be greater than MAXRECORDSPERQUERY. RECORDSPERQUERY = "
 							+ recordsCount + " MAXRECORDSPERQUERY = " + maxRecordsCount);
+		}
 		else
+		{
 			ApplicationServiceClientImpl.recordsCount = recordsCount;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -329,20 +333,20 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	}
 
 	/**
-     * Participant lookup API.
-     *
-     * @param domainObject the domain object
-     *
-     * @return the participant matching obects
-     *
-     * @throws ApplicationException the application exception
-     */
-    public List getParticipantMatchingObects(Object domainObject,Long protocolId) throws ApplicationException
-    {
-        return applicationServiceProxy.getParticipantMatchingObects(getClientInfo(), domainObject,protocolId);
-    }
-
-
+	 * Participant lookup API.
+	 *
+	 * @param domainObject the domain object
+	 *
+	 * @return the participant matching obects
+	 *
+	 * @throws ApplicationException the application exception
+	 */
+	public List getParticipantMatchingObects(Object domainObject, Long protocolId)
+			throws ApplicationException
+	{
+		return applicationServiceProxy.getParticipantMatchingObects(getClientInfo(), domainObject,
+				protocolId);
+	}
 
 	/**
 	 * Get scg label.
@@ -409,7 +413,7 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getCaTissueLocalParticipantMatchingObects(java.lang.Object, java.lang.Long)
 	 */
-	public List getCaTissueLocalParticipantMatchingObects(Object domainObject,  Set<Long> cpIdSet)
+	public List getCaTissueLocalParticipantMatchingObects(Object domainObject, Set<Long> cpIdSet)
 			throws ApplicationException
 	{
 		// TODO Auto-generated method stub
@@ -418,8 +422,13 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	}
 
 	public Object getVisitRelatedEncounteredDate(Map<String, Long> map) throws ApplicationException
-    {
-        return applicationServiceProxy.getVisitRelatedEncounteredDate(getClientInfo(), map);
-    }
+	{
+		return applicationServiceProxy.getVisitRelatedEncounteredDate(getClientInfo(), map);
+	}
+
+	public void delegateUpdateMessageForEventEntry(Long messageId) throws ApplicationException
+	{
+		applicationServiceProxy.delegateUpdateMessageForEventEntry(getClientInfo(), messageId);
+	}
 
 }

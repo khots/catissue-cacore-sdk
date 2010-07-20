@@ -47,9 +47,9 @@ public class ApplicationServiceImpl extends ApplicationService
 	 */
 	public ApplicationServiceImpl()
 	{
-		this.applicationServiceBusinessImpl = ApplicationServiceBusinessImpl.getLocalInstance();
-		this.writableDAO = new WritableDAO();
-		this.securityEnabler = new SecurityEnabler(SecurityConfiguration.getApplicationName());
+		applicationServiceBusinessImpl = ApplicationServiceBusinessImpl.getLocalInstance();
+		writableDAO = new WritableDAO();
+		securityEnabler = new SecurityEnabler(SecurityConfiguration.getApplicationName());
 	}
 
 	/* (non-Javadoc)
@@ -80,7 +80,7 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		try
 		{
-			this.applicationServiceBusinessImpl.setRecordsCount(recordsCount);
+			applicationServiceBusinessImpl.setRecordsCount(recordsCount);
 		}
 		catch (Exception e)
 		{
@@ -94,7 +94,7 @@ public class ApplicationServiceImpl extends ApplicationService
 	 */
 	public void setSearchCaseSensitivity(boolean caseSensitivity)
 	{
-		this.applicationServiceBusinessImpl.setSearchCaseSensitivity(caseSensitivity);
+		applicationServiceBusinessImpl.setSearchCaseSensitivity(caseSensitivity);
 	}
 
 	/*
@@ -108,7 +108,7 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		try
 		{
-			return this.applicationServiceBusinessImpl.getQueryRowCount(criteria, targetClassName);
+			return applicationServiceBusinessImpl.getQueryRowCount(criteria, targetClassName);
 		}
 		catch (Exception e)
 		{
@@ -129,7 +129,7 @@ public class ApplicationServiceImpl extends ApplicationService
 		List list = null;
 		try
 		{
-			list = this.applicationServiceBusinessImpl.query(detachedcriteria, targetClassName);
+			list = applicationServiceBusinessImpl.query(detachedcriteria, targetClassName);
 		}
 		catch (Exception e)
 		{
@@ -150,7 +150,7 @@ public class ApplicationServiceImpl extends ApplicationService
 		List list = null;
 		try
 		{
-			list = this.applicationServiceBusinessImpl.query(hqlcriteria, targetClassName);
+			list = applicationServiceBusinessImpl.query(hqlcriteria, targetClassName);
 		}
 		catch (Exception e)
 		{
@@ -200,7 +200,7 @@ public class ApplicationServiceImpl extends ApplicationService
 		List list = null;
 		try
 		{
-			list = this.applicationServiceBusinessImpl.query(criteria, firstRow, resultsPerQuery,
+			list = applicationServiceBusinessImpl.query(criteria, firstRow, resultsPerQuery,
 					targetClassName);
 		}
 		catch (Exception e)
@@ -221,7 +221,7 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		try
 		{
-			return this.applicationServiceBusinessImpl.search(targetClass, obj);
+			return applicationServiceBusinessImpl.search(targetClass, obj);
 		}
 		catch (Exception e)
 		{
@@ -240,7 +240,7 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		try
 		{
-			return this.applicationServiceBusinessImpl.search(targetClass, objList);
+			return applicationServiceBusinessImpl.search(targetClass, objList);
 		}
 		catch (Exception e)
 		{
@@ -259,7 +259,7 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		try
 		{
-			return this.applicationServiceBusinessImpl.search(path, obj);
+			return applicationServiceBusinessImpl.search(path, obj);
 		}
 		catch (Exception e)
 		{
@@ -278,7 +278,7 @@ public class ApplicationServiceImpl extends ApplicationService
 	{
 		try
 		{
-			return this.applicationServiceBusinessImpl.search(path, objList);
+			return applicationServiceBusinessImpl.search(path, objList);
 		}
 		catch (Exception e)
 		{
@@ -348,19 +348,20 @@ public class ApplicationServiceImpl extends ApplicationService
 	}
 
 	/**
-     * Participant look up API.
-     *
-     * @param object the object
-     *
-     * @return the participant matching obects
-     *
-     * @throws ApplicationException the application exception
-     */
-    public List getParticipantMatchingObects(Object object,Long protocolId) throws ApplicationException
-    {
+	 * Participant look up API.
+	 *
+	 * @param object the object
+	 *
+	 * @return the participant matching obects
+	 *
+	 * @throws ApplicationException the application exception
+	 */
+	public List getParticipantMatchingObects(Object object, Long protocolId)
+			throws ApplicationException
+	{
 
-        return null;
-    }
+		return null;
+	}
 
 	/**
 	 * Get scg label.
@@ -426,16 +427,21 @@ public class ApplicationServiceImpl extends ApplicationService
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getCaTissueLocalParticipantMatchingObects(java.lang.Object, java.lang.Long)
 	 */
-	public List getCaTissueLocalParticipantMatchingObects(Object object,  Set<Long> cpIdSet)
+	public List getCaTissueLocalParticipantMatchingObects(Object object, Set<Long> cpIdSet)
 			throws ApplicationException
 	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-    public  Object getVisitRelatedEncounteredDate(Map<String,Long> map)  throws ApplicationException
-    {
-        return null;
-    }
+	public Object getVisitRelatedEncounteredDate(Map<String, Long> map) throws ApplicationException
+	{
+		return null;
+	}
+
+	public void delegateUpdateMessageForEventEntry(Long messageId) throws ApplicationException
+	{
+
+	}
 
 }

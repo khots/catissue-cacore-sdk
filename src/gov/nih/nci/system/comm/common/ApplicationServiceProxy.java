@@ -1,3 +1,4 @@
+
 package gov.nih.nci.system.comm.common;
 
 import gov.nih.nci.common.util.ClientInfo;
@@ -54,14 +55,15 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract int getQueryRowCount(ClientInfo clientInfo, Object criteria, String targetClassName) throws ApplicationException;
+	public abstract int getQueryRowCount(ClientInfo clientInfo, Object criteria,
+			String targetClassName) throws ApplicationException;
 
 	/**
 	 * Sets the records count.
 	 *
 	 * @param clientInfo the new records count
 	 */
-	public abstract void setRecordsCount (ClientInfo clientInfo);
+	public abstract void setRecordsCount(ClientInfo clientInfo);
 
 	/**
 	 * Search.
@@ -74,7 +76,8 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract List search(ClientInfo clientInfo, String path, List objList) throws ApplicationException;
+	public abstract List search(ClientInfo clientInfo, String path, List objList)
+			throws ApplicationException;
 
 	/**
 	 * Search.
@@ -87,7 +90,8 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract List search(ClientInfo clientInfo, String path, Object obj) throws ApplicationException;
+	public abstract List search(ClientInfo clientInfo, String path, Object obj)
+			throws ApplicationException;
 
 	/**
 	 * Search.
@@ -100,7 +104,8 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract List search(ClientInfo clientInfo, Class targetClass, List objList) throws ApplicationException;
+	public abstract List search(ClientInfo clientInfo, Class targetClass, List objList)
+			throws ApplicationException;
 
 	/**
 	 * Search.
@@ -113,7 +118,8 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract List search(ClientInfo clientInfo, Class targetClass, Object obj) throws ApplicationException;
+	public abstract List search(ClientInfo clientInfo, Class targetClass, Object obj)
+			throws ApplicationException;
 
 	/**
 	 * Query.
@@ -128,7 +134,8 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract List query(ClientInfo clientInfo, Object criteria, int firstRow, int resultsPerQuery, String targetClassName) throws ApplicationException;
+	public abstract List query(ClientInfo clientInfo, Object criteria, int firstRow,
+			int resultsPerQuery, String targetClassName) throws ApplicationException;
 
 	/**
 	 * Query.
@@ -141,7 +148,8 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract List query(ClientInfo clientInfo, DetachedCriteria detachedCriteria, String targetClassName) throws ApplicationException;
+	public abstract List query(ClientInfo clientInfo, DetachedCriteria detachedCriteria,
+			String targetClassName) throws ApplicationException;
 
 	/**
 	 * Query.
@@ -154,7 +162,8 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract List query(ClientInfo clientInfo, HQLCriteria hqlCriteria, String targetClassName) throws ApplicationException;
+	public abstract List query(ClientInfo clientInfo, HQLCriteria hqlCriteria,
+			String targetClassName) throws ApplicationException;
 
 	/*@WRITABLE_API_START@*/
 	/**
@@ -167,7 +176,9 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract Object createObject(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
+	public abstract Object createObject(ClientInfo clientInfo, Object domainobject)
+			throws ApplicationException;
+
 	/*@WRITABLE_API_END@*/
 
 	/*@WRITABLE_API_START@*/
@@ -181,7 +192,9 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract Object updateObject(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
+	public abstract Object updateObject(ClientInfo clientInfo, Object domainobject)
+			throws ApplicationException;
+
 	/*@WRITABLE_API_END@*/
 
 	/*@WRITABLE_API_START@*/
@@ -193,7 +206,9 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract void removeObject(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
+	public abstract void removeObject(ClientInfo clientInfo, Object domainobject)
+			throws ApplicationException;
+
 	/*@WRITABLE_API_END@*/
 
 	/*@WRITABLE_API_START@*/
@@ -207,7 +222,9 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract List getObjects(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
+	public abstract List getObjects(ClientInfo clientInfo, Object domainobject)
+			throws ApplicationException;
+
 	/*@WRITABLE_API_END@*/
 	/**
 	 * PArticipant lookup API.
@@ -219,7 +236,8 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
+	public abstract List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject)
+			throws ApplicationException;
 
 	/**
 	 * Get scg label.
@@ -231,7 +249,8 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract String getSpecimenCollectionGroupLabel(ClientInfo clientInfo, Object domainobject) throws ApplicationException;
+	public abstract String getSpecimenCollectionGroupLabel(ClientInfo clientInfo,
+			Object domainobject) throws ApplicationException;
 
 	/**
 	 * Get default value for key.
@@ -253,7 +272,8 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract void registerParticipantToEMPI(ClientInfo clientInfo,Object object) throws ApplicationException;
+	public abstract void registerParticipantToEMPI(ClientInfo clientInfo, Object object)
+			throws ApplicationException;
 
 	/**
 	 * Update participant with empi details.
@@ -263,33 +283,36 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public abstract void updateParticipantWithEMPIDetails(ClientInfo clientInfo,String demographicXML) throws ApplicationException;
+	public abstract void updateParticipantWithEMPIDetails(ClientInfo clientInfo,
+			String demographicXML) throws ApplicationException;
 
-    /**
-     * Register participant.
-     *
-     * @param clientInfo the client info
-     * @param object the object
-     * @param cpid the cpid
-     * @param userName the user name
-     *
-     * @return the object
-     *
-     * @throws ApplicationException the application exception
-     */
-    public abstract Object registerParticipant(ClientInfo clientInfo,Object object, Long cpid,String userName) throws ApplicationException;
+	/**
+	 * Register participant.
+	 *
+	 * @param clientInfo the client info
+	 * @param object the object
+	 * @param cpid the cpid
+	 * @param userName the user name
+	 *
+	 * @return the object
+	 *
+	 * @throws ApplicationException the application exception
+	 */
+	public abstract Object registerParticipant(ClientInfo clientInfo, Object object, Long cpid,
+			String userName) throws ApplicationException;
 
-    /**
-     * Gets the clinportal url ids.
-     *
-     * @param clientInfo the client info
-     * @param map the map
-     *
-     * @return the clinportal url ids
-     *
-     * @throws ApplicationException the application exception
-     */
-    public abstract Object getClinportalUrlIds(ClientInfo clientInfo,Map map)  throws ApplicationException;
+	/**
+	 * Gets the clinportal url ids.
+	 *
+	 * @param clientInfo the client info
+	 * @param map the map
+	 *
+	 * @return the clinportal url ids
+	 *
+	 * @throws ApplicationException the application exception
+	 */
+	public abstract Object getClinportalUrlIds(ClientInfo clientInfo, Map map)
+			throws ApplicationException;
 
 	/**
 	 * Gets the ca tissue local participant matching obects.
@@ -302,11 +325,16 @@ public interface ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-    public abstract List getCaTissueLocalParticipantMatchingObects(ClientInfo clientInfo, Object domainobject,Set<Long> cpIdSet) throws ApplicationException;
+	public abstract List getCaTissueLocalParticipantMatchingObects(ClientInfo clientInfo,
+			Object domainobject, Set<Long> cpIdSet) throws ApplicationException;
 
-	public abstract Object getVisitRelatedEncounteredDate(ClientInfo clientInfo,Map<String,Long> map)  throws ApplicationException;
+	public abstract Object getVisitRelatedEncounteredDate(ClientInfo clientInfo,
+			Map<String, Long> map) throws ApplicationException;
 
-    public abstract List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject,Long protocolId) throws ApplicationException;
+	public abstract List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject,
+			Long protocolId) throws ApplicationException;
 
+	public abstract void delegateUpdateMessageForEventEntry(ClientInfo clientInfo, Long messageId)
+			throws ApplicationException;
 
 }
