@@ -31,10 +31,10 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 {
 
 	/** The application service. */
-	private ApplicationService applicationService;
+	private final ApplicationService applicationService;
 
 	/** The security enabler. */
-	private SecurityEnabler securityEnabler;
+	private final SecurityEnabler securityEnabler;
 
 	/**
 	 * Default Constructor it takes in.
@@ -380,7 +380,7 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	public List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject)
 			throws ApplicationException
 	{
-	    return getParticipantMatchingObects(clientInfo,domainobject,null);
+		return getParticipantMatchingObects(clientInfo, domainobject, null);
 	}
 
 	/**
@@ -486,7 +486,7 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	private String getUserId(ClientInfo clientInfo) throws ApplicationException
 	{
 		SessionManager sessionManager = SessionManager.getInstance();
-		UserSession userSession = (UserSession) sessionManager.getSession(clientInfo.getUserName());
+		UserSession userSession = sessionManager.getSession(clientInfo.getUserName());
 		if (userSession == null)
 		{
 			throw new ApplicationException("User is not in session !");
@@ -529,7 +529,9 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 		for (int i = 0; i < method.length; i++)
 		{
 			if (method[i].getName().equals(methodName))
+			{
 				return method[i];
+			}
 		}
 		return null;
 	}
@@ -566,11 +568,11 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	public Object registerParticipant(ClientInfo clientInfo, Object object, Long cpid,
 			String userName) throws ApplicationException
 	{
-	    /*
-         * method name for to retrieve matching participant
-         */
-        String methodName = "delegateRegisterParticipant";
-        return callDelegator(methodName, clientInfo,object,cpid);
+		/*
+		 * method name for to retrieve matching participant
+		 */
+		String methodName = "delegateRegisterParticipant";
+		return callDelegator(methodName, clientInfo, object, cpid);
 	}
 
 	/* Regestring clinportal patient to EMPI */
@@ -619,8 +621,7 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	 *
 	 * @throws ApplicationException the application exception
 	 */
-	public Object getClinportalUrlIds(ClientInfo clientInfo, Map map)
-			throws ApplicationException
+	public Object getClinportalUrlIds(ClientInfo clientInfo, Map map) throws ApplicationException
 	{
 		String methodName = "getClinportalUrlIds";
 		return callDelegator(methodName, clientInfo, map);
@@ -639,7 +640,8 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 	 * @throws ApplicationException the application exception
 	 */
 	private Object callDelegatorForcaTissueLocalParticipantMatch(String methodName,
-			ClientInfo clientInfo, Object domainObject, Set<Long> protocolIdSet) throws ApplicationException
+			ClientInfo clientInfo, Object domainObject, Set<Long> protocolIdSet)
+			throws ApplicationException
 	{
 		// specify the className of caTissue core delgator class
 		final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
@@ -672,6 +674,7 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 
 		return domainObject;
 	}
+
 	/**
 	 * Method for finding catissue local matched participants.
 	 */
@@ -683,77 +686,84 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 		 */
 		String methodName = "delegateGetCaTissueLocalParticipantMatchingObects";
 		// calls the caTissue delegator
-		List list = (List) callDelegatorForcaTissueLocalParticipantMatch(methodName, clientInfo, domainobject,protocolIdSet);
+		List list = (List) callDelegatorForcaTissueLocalParticipantMatch(methodName, clientInfo,
+				domainobject, protocolIdSet);
 		return list;
 	}
 
-    public Object getVisitRelatedEncounteredDate(ClientInfo clientInfo,Map<String, Long> map) throws ApplicationException
-    {
-        String methodName = "getVisitRelatedEncounteredDate";
-        return callDelegator(methodName, clientInfo, map);
-    }
+	public Object getVisitRelatedEncounteredDate(ClientInfo clientInfo, Map<String, Long> map)
+			throws ApplicationException
+	{
+		String methodName = "getVisitRelatedEncounteredDate";
+		return callDelegator(methodName, clientInfo, map);
+	}
 
+	/**
+	 * Participant lookup API.
+	 *
+	 * @param clientInfo the client info
+	 * @param domainobject the domainobject
+	 *
+	 * @return the participant matching obects
+	 *
+	 * @throws ApplicationException the application exception
+	 */
+	public List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject,
+			Long protocolId) throws ApplicationException
+	{
+		/*
+		 * method name for to retrieve matching participant
+		 */
+		String methodName = "delegateGetParticipantMatchingObects";
+		// calls the caTissue delegator
+		//List list = (List) callDelegator(methodName, clientInfo, domainobject);
+		List list = (List) callDelegator(methodName, clientInfo, domainobject, protocolId);
+		return list;
+	}
 
-    /**
-     * Participant lookup API.
-     *
-     * @param clientInfo the client info
-     * @param domainobject the domainobject
-     *
-     * @return the participant matching obects
-     *
-     * @throws ApplicationException the application exception
-     */
-    public List getParticipantMatchingObects(ClientInfo clientInfo, Object domainobject,Long protocolId)
-            throws ApplicationException
-    {
-        /*
-         * method name for to retrieve matching participant
-         */
-        String methodName = "delegateGetParticipantMatchingObects";
-        // calls the caTissue delegator
-        //List list = (List) callDelegator(methodName, clientInfo, domainobject);
-        List list = (List) callDelegator(methodName, clientInfo, domainobject,protocolId);
-        return list;
-    }
+	private Object callDelegator(String methodName, ClientInfo clientInfo, Object domainObject,
+			Long protocolId) throws ApplicationException
+	{
+		// specify the className of caTissue core delgator class
+		final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
+		String userId = getUserId(clientInfo);
+		try
+		{
+			Class delegator = Class.forName(DELEGATOR_CLASS);
+			Object obj = delegator.newInstance();
+			Method method = getMethod(delegator, methodName);
+			Object[] args = {domainObject, protocolId, userId};
+			domainObject = method.invoke(obj, args);
+		}
+		catch (ClassNotFoundException e)
+		{
+			throw handleException(e);
+		}
+		catch (IllegalAccessException e)
+		{
+			throw handleException(e);
+		}
+		catch (IllegalArgumentException e)
+		{
+			throw handleException(e);
+		}
+		catch (InstantiationException e)
+		{
+			throw handleException(e);
+		}
+		catch (InvocationTargetException e)
+		{
+			throw handleException(e);
+		}
 
-    private Object callDelegator(String methodName,
-            ClientInfo clientInfo, Object domainObject, Long protocolId) throws ApplicationException
-    {
-        // specify the className of caTissue core delgator class
-        final String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
-        String userId = getUserId(clientInfo);
-        try
-        {
-            Class delegator = Class.forName(DELEGATOR_CLASS);
-            Object obj = delegator.newInstance();
-            Method method = getMethod(delegator, methodName);
-            Object[] args = {domainObject, protocolId, userId};
-            domainObject = method.invoke(obj, args);
-        }
-        catch (ClassNotFoundException e)
-        {
-            throw handleException(e);
-        }
-        catch (IllegalAccessException e)
-        {
-            throw handleException(e);
-        }
-        catch (IllegalArgumentException e)
-        {
-            throw handleException(e);
-        }
-        catch (InstantiationException e)
-        {
-            throw handleException(e);
-        }
-        catch (InvocationTargetException e)
-        {
-            throw handleException(e);
-        }
+		return domainObject;
+	}
 
-        return domainObject;
-    }
-
+	public void delegateUpdateMessageForEventEntry(ClientInfo clientInfo, Long messageId)
+			throws ApplicationException
+	{
+		String methodName = "delegateUpdateMessageForEventEntry";
+		callDelegator(methodName, clientInfo, messageId);
+	}
 
 }
