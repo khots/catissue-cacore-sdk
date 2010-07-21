@@ -717,8 +717,41 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 		String methodName = "delegateGetParticipantMatchingObects";
 		// calls the caTissue delegator
 		//List list = (List) callDelegator(methodName, clientInfo, domainobject);
-		List list = (List) callDelegator(methodName, clientInfo, domainobject, protocolId);
+		List list = (List) callDelegatorForLocalParticipantMatch(methodName, clientInfo,
+				domainobject, protocolId);
 		return list;
+	}
+
+	private Object callDelegatorForLocalParticipantMatch(String methodName, ClientInfo clientInfo,
+			Object domainObject, Long protocolId) throws ApplicationException
+	{
+		String DELEGATOR_CLASS = "edu.wustl.catissuecore.client.CaCoreAppServicesDelegator";
+		String userId = getUserId(clientInfo);
+		try
+		{
+			Class delegator = Class.forName(DELEGATOR_CLASS);
+			Object obj = delegator.newInstance();
+			Method method = getMethod(delegator, methodName);
+			Object[] args = {userId, domainObject, protocolId};
+			domainObject = method.invoke(obj, args);
+		}
+		catch (ClassNotFoundException e)
+		{
+			throw handleException(e);
+		}
+		catch (IllegalAccessException e)
+		{
+			throw handleException(e);
+		}
+		catch (InvocationTargetException e)
+		{
+			throw handleException(e);
+		}
+		catch (InstantiationException e)
+		{
+			throw handleException(e);
+		}
+		return domainObject;
 	}
 
 	private Object callDelegator(String methodName, ClientInfo clientInfo, Object domainObject,
