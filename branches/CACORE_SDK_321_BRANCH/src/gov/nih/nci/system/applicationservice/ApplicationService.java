@@ -140,4 +140,9 @@ public abstract class ApplicationService
 	public abstract void delegateUpdateMessageForEventEntry(Long messageId)
 			throws ApplicationException;
 
+	public abstract String getVisitInformationURL(Object urlInformationObject)
+			throws ApplicationException;
+
+	public abstract String getSpecimenCollectionGroupURL(Object urlInformationObject)
+			throws ApplicationException;
 }
