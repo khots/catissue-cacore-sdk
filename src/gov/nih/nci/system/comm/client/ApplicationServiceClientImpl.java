@@ -260,7 +260,6 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	//	{
 	//		return applicationServiceProxy.query(getClientInfo(), cqlQuery, targetClassName);
 	//	}
-
 	/* (non-Javadoc)
 	 * @see gov.nih.nci.system.applicationservice.ApplicationService#getQueryRowCount(java.lang.Object, java.lang.String)
 	 */
@@ -429,6 +428,21 @@ public class ApplicationServiceClientImpl extends ApplicationService
 	public void delegateUpdateMessageForEventEntry(Long messageId) throws ApplicationException
 	{
 		applicationServiceProxy.delegateUpdateMessageForEventEntry(getClientInfo(), messageId);
+	}
+
+	@Override
+	public String getSpecimenCollectionGroupURL(Object urlInformationObject)
+			throws ApplicationException
+	{
+		return applicationServiceProxy.getSpecimenCollectionGroupURL(getClientInfo(),
+				urlInformationObject);
+	}
+
+	@Override
+	public String getVisitInformationURL(Object urlInformationObject) throws ApplicationException
+	{
+		return applicationServiceProxy
+				.getVisitInformationURL(getClientInfo(), urlInformationObject);
 	}
 
 }

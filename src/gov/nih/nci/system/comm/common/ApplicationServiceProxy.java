@@ -337,4 +337,10 @@ public interface ApplicationServiceProxy
 	public abstract void delegateUpdateMessageForEventEntry(ClientInfo clientInfo, Long messageId)
 			throws ApplicationException;
 
+	public abstract String getSpecimenCollectionGroupURL(ClientInfo clientInfo,
+			Object urlInformationObject) throws ApplicationException;
+
+	public abstract String getVisitInformationURL(ClientInfo clientInfo, Object urlInformationObject)
+			throws ApplicationException;
+
 }

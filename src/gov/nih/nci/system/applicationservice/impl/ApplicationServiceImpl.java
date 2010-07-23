@@ -444,4 +444,17 @@ public class ApplicationServiceImpl extends ApplicationService
 
 	}
 
+	@Override
+	public String getSpecimenCollectionGroupURL(Object urlInformationObject)
+			throws ApplicationException
+	{
+		return null;
+	}
+
+	@Override
+	public String getVisitInformationURL(Object urlInformationObject) throws ApplicationException
+	{
+		return null;
+	}
+
 }

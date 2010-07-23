@@ -799,4 +799,19 @@ public class ApplicationServiceServerImpl implements ApplicationServiceProxy
 		callDelegator(methodName, clientInfo, messageId);
 	}
 
+
+	public String getSpecimenCollectionGroupURL(ClientInfo clientInfo, Object urlInformationObject)
+			throws ApplicationException
+	{
+		String methodName = "getSpecimenCollectionGroupURL";
+		return (String)callDelegator(methodName, clientInfo, urlInformationObject);
+	}
+
+	public String getVisitInformationURL(ClientInfo clientInfo, Object urlInformationObject)
+			throws ApplicationException
+	{
+		String methodName = "getVisitInformationURL";
+		return (String)callDelegator(methodName, clientInfo, urlInformationObject);
+	}
+
 }
