@@ -1,0 +1,548 @@
+Buildfile: build.xml
+
+-install-tomcat.main:
+
+install-tomcat:
+
+-install-mysql.main:
+
+install-mysql:
+
+start-mysql:
+
+create-user:
+
+create-schema:
+
+import-data:
+
+-build-schema.main:
+
+-build-schema.custom:
+
+build-schema:
+
+title:
+     [echo] 
+     [echo] ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+     [echo] ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+     [echo] 
+     [echo]                     .oooooo.    .oooooo.  ooooooooo.  oooooooooooo   .oooooo..ooooooooooo.  oooo    oooo
+     [echo]                    d8P'  `Y8b  d8P'  `Y8b `888   `Y88.`888'     `8  d8P'    `Y8`888'   `Y8b `888   .8P' 
+     [echo]  .ooooo.  .oooo.  888         888      888 888   .d88' 888          Y88bo.      888      888 888  d8'   
+     [echo] d88' `"Y8`P  )88b 888         888      888 888ooo88P'  888oooo8      `"Y8888o.  888      888 88888[     
+     [echo] 888       .oP"888 888         888      888 888`88b.    888    "          `"Y88b 888      888 888`88b.   
+     [echo] 888   .o8d8(  888 `88b    ooo `88b    d88' 888  `88b.  888       o  oo     .d8P 888     d88' 888  `88b. 
+     [echo] `Y8bod8P'`Y888""8o `Y8bood8P'  `Y8bood8P' o888o  o888oo888ooooood8  8""88888P' o888bood8P'  o888o  o888o
+     [echo] 
+     [echo] ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+     [echo] ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo
+     [echo] 		
+
+-create-output-dirs.main:
+     [echo] *****************************************************************
+     [echo] ***  Creating output directories
+     [echo] *****************************************************************
+   [delete] Deleting directory C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\temp
+    [mkdir] Created dir: C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\temp
+    [mkdir] Created dir: C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\temp\zip
+
+-create-output-dirs.custom:
+
+create-output-dirs:
+
+-copy-control-files.main:
+     [echo] *****************************************************************
+     [echo] ***  Copying configuration files
+     [echo] *****************************************************************
+     [copy] Copying 141 files to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm
+
+-copy-control-files.custom:
+
+copy-control-files:
+
+rename-csm-files:
+     [echo] *****************************************************************
+     [echo] ***  Renaming CSM Hibernate Configuration File
+     [echo] *****************************************************************
+     [move] Moving 1 file to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\conf\resources\server
+
+replace-tokens-in-files:
+     [echo] *****************************************************************
+     [echo] ***  Replacing tokens in configuration files
+     [echo] *****************************************************************
+
+-init-project.main:
+
+-init-project.custom:
+
+init-project:
+
+-copy-custom-lib.main:
+     [echo] *****************************************************************
+     [echo] ***  Copying custom JAR files
+     [echo] *****************************************************************
+
+-copy-custom-lib.custom:
+
+copy-custom-lib:
+
+-generate-templates.main:
+     [echo] *****************************************************************
+     [echo] ***  Compiling JET templates
+     [echo] *****************************************************************
+     [jetc] Compiling 7 JET template(s) to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\temp\codegen\src
+
+-generate-templates.custom:
+
+generate-templates:
+
+-compile-generator.main:
+     [echo] *****************************************************************
+     [echo] ***  Compiling SDK code generator
+     [echo] *****************************************************************
+    [javac] Compiling 7 source files to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\temp\codegen\build
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+
+-compile-generator.custom:
+
+compile-generator:
+
+-fix-xmi.main:
+     [echo] *****************************************************************
+     [echo] ***  Pre-processing XMI file
+     [echo] *****************************************************************
+   [delete] Deleting: C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\models\xmi\fixed_clinportal.xmi
+
+-fix-xmi.custom:
+
+fix-xmi:
+
+-generate-OR-mapping.main:
+     [echo] *****************************************************************
+     [echo] ***  Generating OR mapping files
+     [echo] *****************************************************************
+     [java] - omPackage: Logical View.Logical Model
+     [java] - dmPackage: Logical View.Data Model
+     [java] - Executing filter mef
+     [java] - 250 elements selected by mef
+     [java] - Executing filter cf
+     [java] - 28 elements selected by cf
+     [java] - Executing transformer hbm for Address
+     [java] - 0 artifacts produced.
+     [java] - Executing transformer hbm for AuditEventQueryLog
+     [java] - 0 data sources found for AuditEventQueryLog
+     [java] - No table found for Logical View.Logical Model.edu.wustl.catissuecore.domain.AuditEventQueryLog
+     [java] - Error generating - 
+     [java] java.lang.RuntimeException: No table found for Logical View.Logical Model.edu.wustl.catissuecore.domain.AuditEventQueryLog
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13HBMTransformer.doMapping(UML13HBMTransformer.java:131)
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13HBMTransformer.execute(UML13HBMTransformer.java:105)
+     [java] 	at gov.nih.nci.codegen.core.Generator.execute(Generator.java:185)
+     [java] Exception in thread "main" gov.nih.nci.codegen.core.GenerationException: Error generating
+     [java] 	at gov.nih.nci.codegen.core.GeneratorImpl.main(GeneratorImpl.java:101)
+     [java] 	at gov.nih.nci.codegen.core.Generator.execute(Generator.java:197)
+     [java] 	at gov.nih.nci.codegen.core.GeneratorImpl.main(GeneratorImpl.java:101)
+     [java] Caused by: java.lang.RuntimeException: No table found for Logical View.Logical Model.edu.wustl.catissuecore.domain.AuditEventQueryLog
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13HBMTransformer.doMapping(UML13HBMTransformer.java:131)
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13HBMTransformer.execute(UML13HBMTransformer.java:105)
+     [java] 	at gov.nih.nci.codegen.core.Generator.execute(Generator.java:185)
+     [java] 	... 1 more
+     [java] - omPackage: Logical View.Logical Model
+     [java] - dmPackage: Logical View.Data Model
+     [java] - Executing filter mef
+     [java] - 250 elements selected by mef
+     [java] - Executing filter cf
+     [java] - 28 elements selected by cf
+     [java] - Executing transformer hbm for Address
+     [java] - 0 artifacts produced.
+     [java] - Executing transformer hbm for AuditEventQueryLog
+     [java] - 0 data sources found for AuditEventQueryLog
+     [java] - No table found for Logical View.Logical Model.edu.wustl.catissuecore.domain.AuditEventQueryLog
+     [java] - Error generating - 
+     [java] java.lang.RuntimeException: No table found for Logical View.Logical Model.edu.wustl.catissuecore.domain.AuditEventQueryLog
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13HBMImplTransformer.doMapping(UML13HBMImplTransformer.java:121)
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13HBMImplTransformer.execute(UML13HBMImplTransformer.java:97)
+     [java] Exception in thread "main" gov.nih.nci.codegen.core.GenerationException: Error generating
+     [java] 	at gov.nih.nci.codegen.core.Generator.execute(Generator.java:185)
+     [java] 	at gov.nih.nci.codegen.core.Generator.execute(Generator.java:197)
+     [java] 	at gov.nih.nci.codegen.core.GeneratorImpl.main(GeneratorImpl.java:101)
+     [java] 	at gov.nih.nci.codegen.core.GeneratorImpl.main(GeneratorImpl.java:101)
+     [java] Caused by: java.lang.RuntimeException: No table found for Logical View.Logical Model.edu.wustl.catissuecore.domain.AuditEventQueryLog
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13HBMImplTransformer.doMapping(UML13HBMImplTransformer.java:121)
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13HBMImplTransformer.execute(UML13HBMImplTransformer.java:97)
+     [java] 	at gov.nih.nci.codegen.core.Generator.execute(Generator.java:185)
+     [java] 	... 1 more
+
+-generate-OR-mapping.custom:
+
+generate-OR-mapping:
+
+-generate-orm-conf.main:
+     [echo] *****************************************************************
+     [echo] ***  Generating ORM configuration files
+     [echo] *****************************************************************
+     [java] - Executing filter model-filter
+     [java] - 1 elements selected by model-filter
+     [java] - Executing transformer hbc
+     [java] - 1 artifacts produced.
+
+-generate-orm-conf.custom:
+
+generate-orm-conf:
+
+-generate-dao-conf.main:
+     [echo] *****************************************************************
+     [echo] ***  Generating DAO configuration files
+     [echo] *****************************************************************
+     [java] - Executing filter model-filter
+     [java] - 1 elements selected by model-filter
+     [java] - Executing transformer dao
+     [java] - 1 artifacts produced.
+
+-generate-dao-conf.custom:
+
+generate-dao-conf:
+
+-generate-cache.main:
+     [echo] *****************************************************************
+     [echo] ***  Generating cache configuration files
+     [echo] *****************************************************************
+     [java] - Executing filter model-filter
+     [java] - 1 elements selected by model-filter
+     [java] - Executing transformer ehcacheutil
+     [java] - 1 artifacts produced.
+
+-generate-cache.custom:
+
+generate-cache:
+
+-build-orm.main:
+
+-build-orm.custom:
+
+build-orm:
+
+-copy-custom-orm.main:
+     [echo] *****************************************************************
+     [echo] ***  Copying custom OR mapping files
+     [echo] *****************************************************************
+
+-copy-custom-orm.custom:
+
+copy-custom-orm:
+
+-generate-beans.main:
+
+-generate-beans.custom:
+
+generate-beans:
+
+-generate-junit.main:
+
+-generate-junit.custom:
+
+generate-junit:
+
+-build-beans.main:
+
+-build-beans.custom:
+
+build-beans:
+
+-copy-custom-beans.main:
+     [echo] *****************************************************************
+     [echo] ***  Copying custom Java beans
+     [echo] *****************************************************************
+
+-copy-custom-beans.custom:
+
+copy-custom-beans:
+
+-generate-common-package-util.main:
+     [echo] *****************************************************************
+     [echo] ***  Generating common package utilities
+     [echo] *****************************************************************
+     [java] - Executing filter model-filter
+     [java] - 1 elements selected by model-filter
+     [java] - Executing transformer commonpackageutil
+     [java] - 1 artifacts produced.
+
+-generate-common-package-util.custom:
+
+generate-common-package-util:
+
+-generate-common-role-util.main:
+     [echo] *****************************************************************
+     [echo] ***  Generating common role utilities
+     [echo] *****************************************************************
+     [java] - Executing filter model-filter
+     [java] - 1 elements selected by model-filter
+     [java] - Executing transformer commonroleutil
+     [java] - 1 artifacts produced.
+
+-generate-common-role-util.custom:
+
+generate-common-role-util:
+
+-generate-schemas.main:
+     [echo] *****************************************************************
+     [echo] ***  Generating XML schemas
+     [echo] *****************************************************************
+     [java] - Executing filter model-filter
+     [java] - 1 elements selected by model-filter
+     [java] - Executing transformer schema
+     [java] - Exception: 
+     [java] org.jdom.IllegalDataException: The data "null" is not legal for a JDOM attribute: A null is not a legal XML value.
+     [java] 	at org.jdom.Attribute.setValue(Attribute.java:486)
+     [java] 	at org.jdom.Attribute.<init>(Attribute.java:229)
+     [java] 	at org.jdom.Attribute.<init>(Attribute.java:252)
+     [java] 	at org.jdom.Element.setAttribute(Element.java:1109)
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13SchemaTransformer.addSequenceAssociationElement(UML13SchemaTransformer.java:401)
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13SchemaTransformer.doMapping(UML13SchemaTransformer.java:356)
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13SchemaTransformer.generateRepository(UML13SchemaTransformer.java:293)
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13SchemaTransformer.execute(UML13SchemaTransformer.java:180)
+     [java] 	at gov.nih.nci.codegen.core.Generator.execute(Generator.java:185)
+     [java] 	at gov.nih.nci.codegen.core.GeneratorImpl.main(GeneratorImpl.java:101)
+     [java] - Error generating - 
+     [java] java.lang.IllegalStateException: Root element not set
+     [java] 	at org.jdom.Document.getContent(Document.java:408)
+     [java] 	at org.jdom.output.XMLOutputter.output(XMLOutputter.java:369)
+     [java] Exception in thread "main" gov.nih.nci.codegen.core.GenerationException: Error generating
+     [java] 	at org.jdom.output.XMLOutputter.outputString(XMLOutputter.java:542)
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13SchemaTransformer.execute(UML13SchemaTransformer.java:186)
+     [java] 	at gov.nih.nci.codegen.core.Generator.execute(Generator.java:197)
+     [java] 	at gov.nih.nci.codegen.core.Generator.execute(Generator.java:185)
+     [java] 	at gov.nih.nci.codegen.core.GeneratorImpl.main(GeneratorImpl.java:101)
+     [java] 	at gov.nih.nci.codegen.core.GeneratorImpl.main(GeneratorImpl.java:101)
+     [java] Caused by: java.lang.IllegalStateException: Root element not set
+     [java] 	at org.jdom.Document.getContent(Document.java:408)
+     [java] 	at org.jdom.output.XMLOutputter.output(XMLOutputter.java:369)
+     [java] 	at org.jdom.output.XMLOutputter.outputString(XMLOutputter.java:542)
+     [java] 	at gov.nih.nci.codegen.core.transformer.UML13SchemaTransformer.execute(UML13SchemaTransformer.java:186)
+     [java] 	at gov.nih.nci.codegen.core.Generator.execute(Generator.java:185)
+     [java] 	... 1 more
+
+-generate-schemas.custom:
+
+generate-schemas:
+
+-generate-wsdd.main:
+     [echo] *****************************************************************
+     [echo] ***  Generating WSDD file
+     [echo] *****************************************************************
+     [java] - Executing filter model-filter
+     [java] - 1 elements selected by model-filter
+     [java] - Executing transformer wsddutil
+     [java] - 1 artifacts produced.
+
+-generate-wsdd.custom:
+
+generate-wsdd:
+
+-generate-xml-mapping.main:
+     [echo] *****************************************************************
+     [echo] ***  Generating Marshaller XML mapping file
+     [echo] *****************************************************************
+     [java] - Executing filter model-filter
+     [java] - 1 elements selected by model-filter
+     [java] - Executing transformer mapping
+     [java] - 1 artifacts produced.
+     [echo] *****************************************************************
+     [echo] ***  Generating Unmarshaller XML mapping file
+     [echo] *****************************************************************
+     [java] - Executing filter model-filter
+     [java] - 1 elements selected by model-filter
+     [java] - Executing transformer mapping
+     [java] - 1 artifacts produced.
+
+-generate-xml-mapping.custom:
+
+generate-xml-mapping:
+
+-build-artifacts.main:
+
+-build-artifacts.custom:
+
+build-artifacts:
+
+-generate-system.main:
+
+-generate-system.custom:
+
+generate-system:
+
+-copy-framework.main:
+     [echo] *****************************************************************
+     [echo] ***  Copying framework files
+     [echo] *****************************************************************
+     [copy] Copying 93 files to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\src
+     [copy] Copying 47 files to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\web
+     [copy] Copying 5 files to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\web\WEB-INF
+     [copy] Copying 4 files to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\classes
+
+disable-writable-api:
+
+-copy-framework.custom:
+
+copy-framework:
+
+-compile-source.main:
+     [echo] *****************************************************************
+     [echo] ***  Compiling Source
+     [echo] *****************************************************************
+    [javac] Compiling 82 source files to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\classes
+    [javac] C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\src\gov\nih\nci\common\util\StringClobType.java:246: warning: non-varargs call of varargs method with inexact argument type for last parameter;
+    [javac] cast to java.lang.Class for a varargs call
+    [javac] cast to java.lang.Class[] for a non-varargs call and to suppress this warning
+    [javac] 		      Method getCharacterOutputStreamMethod = oracleClobClass.getDeclaredMethod( "getCharacterOutputStream", null );
+    [javac] 		                                                                                                             ^
+    [javac] C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\src\gov\nih\nci\common\util\StringClobType.java:249: warning: non-varargs call of varargs method with inexact argument type for last parameter;
+    [javac] cast to java.lang.Object for a varargs call
+    [javac] cast to java.lang.Object[] for a non-varargs call and to suppress this warning
+    [javac] 		      Writer tempClobWriter = (Writer) getCharacterOutputStreamMethod.invoke( tempClob, null );
+    [javac] 		                                                                                        ^
+    [javac] C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\src\gov\nih\nci\common\util\StringClobType.java:257: warning: non-varargs call of varargs method with inexact argument type for last parameter;
+    [javac] cast to java.lang.Class for a varargs call
+    [javac] cast to java.lang.Class[] for a non-varargs call and to suppress this warning
+    [javac] 		      Method closeMethod = oracleClobClass.getDeclaredMethod( "close", null );
+    [javac] 		                                                                       ^
+    [javac] C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\src\gov\nih\nci\common\util\StringClobType.java:260: warning: non-varargs call of varargs method with inexact argument type for last parameter;
+    [javac] cast to java.lang.Object for a varargs call
+    [javac] cast to java.lang.Object[] for a non-varargs call and to suppress this warning
+    [javac] 		      closeMethod.invoke( tempClob, null );
+    [javac] 		                                    ^
+    [javac] C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\src\gov\nih\nci\system\dao\impl\orm\ORMDAOImpl.java:501: warning: non-varargs call of varargs method with inexact argument type for last parameter;
+    [javac] cast to java.lang.Class for a varargs call
+    [javac] cast to java.lang.Class[] for a non-varargs call and to suppress this warning
+    [javac] 			Method method = delegator.getDeclaredMethod("getAllowedMaxRecordsPerQuery", null);
+    [javac] 			                                                                            ^
+    [javac] C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\src\gov\nih\nci\system\dao\impl\orm\ORMDAOImpl.java:502: warning: non-varargs call of varargs method with inexact argument type for last parameter;
+    [javac] cast to java.lang.Object for a varargs call
+    [javac] cast to java.lang.Object[] for a non-varargs call and to suppress this warning
+    [javac] 			maxRecordsPerQuery = ((Integer)method.invoke(obj,null)).intValue();
+    [javac] 			                                                 ^
+    [javac] Note: C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\src\gov\nih\nci\common\util\CQL2HQL.java uses or overrides a deprecated API.
+    [javac] Note: Recompile with -Xlint:deprecation for details.
+    [javac] Note: Some input files use unchecked or unsafe operations.
+    [javac] Note: Recompile with -Xlint:unchecked for details.
+    [javac] 6 warnings
+
+-compile-source.custom:
+
+compile-source:
+
+-package-war.main:
+     [echo] *****************************************************************
+     [echo] ***  Packaging .war file
+     [echo] *****************************************************************
+      [war] Building war: C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\catissuecorecsm.war
+
+-package-war.custom:
+
+package-war:
+
+-package-client-jar.main:
+     [echo] *****************************************************************
+     [echo] ***  Packaging client jar file
+     [echo] *****************************************************************
+   [delete] Deleting: C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\client\lib\catissuecorecsm-client.jar
+      [jar] Building jar: C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\client\lib\catissuecorecsm-client.jar
+
+-package-client-jar.custom:
+
+package-client-jar:
+
+-package-client-resources.main:
+     [echo] *****************************************************************
+     [echo] ***  Packaging client resources
+     [echo] *****************************************************************
+     [copy] Copying 6 files to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\client
+     [copy] Copying 2 files to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\client\conf
+
+-package-client-resources.custom:
+
+package-client-resources:
+
+-package-client.main:
+
+-package-client.custom:
+
+package-client:
+
+package-thickclient-jar:
+     [echo] *****************************************************************
+     [echo] ***  Packaging thick-client jar file
+     [echo] *****************************************************************
+   [delete] Deleting: C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\thick-client\lib\catissuecorecsm-thickclient.jar
+    [touch] Creating C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\temp\CORESystem.temp
+    [touch] Creating C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\temp\CORESystem.new
+     [copy] Copying 1 file to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\temp
+     [copy] Copying 1 file to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\temp
+      [jar] Building jar: C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\thick-client\lib\catissuecorecsm-thickclient.jar
+
+-package-thickclient-resources.main:
+     [echo] *****************************************************************
+     [echo] ***  Packaging thick-client resources
+     [echo] *****************************************************************
+     [copy] Copying 7 files to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\thick-client\conf
+     [copy] Copying 1 file to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\thick-client\conf
+     [copy] Copying 2 files to C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\thick-client
+
+-package-thickclient-resources.custom:
+
+package-thickclient-resources:
+
+package-thickclient-test-jar:
+     [echo] *****************************************************************
+     [echo] ***  Packaging thick-client-test jar file
+     [echo] *****************************************************************
+   [delete] Deleting: C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\thick-client\lib\catissuecorecsm-thickclient-test.jar
+      [jar] Warning: skipping jar archive C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\thick-client\lib\catissuecorecsm-thickclient-test.jar because no files were included.
+      [jar] Building MANIFEST-only jar: C:\DEV\GIT-WORK\catissue\catissue_cacore_sdk\output\catissuecorecsm\package\thick-client\lib\catissuecorecsm-thickclient-test.jar
+
+-package-thickclient.main:
+
+-package-thickclient.custom:
+
+package-thickclient:
+
+-package-system.main:
+
+-package-system.custom:
+
+package-system:
+
+-copy-server-file.main:
+     [echo] *****************************************************************
+     [echo] ***  Copying .war file to the server container
+     [echo] *****************************************************************
+   [delete] Deleting: C:\DEV\software\jboss-5.1.0.GA\server\default\deploy\catissuecorecsm.war
+     [copy] Copying 1 file to C:\DEV\software\jboss-5.1.0.GA\server\default\deploy
+
+-copy-server-file.custom:
+
+copy-server-file:
+
+start-container:
+
+-deploy-server.main:
+
+-deploy-server.custom:
+
+deploy-server:
+
+-doc.main:
+
+-doc.custom:
+
+doc:
+
+-build-system.main:
+
+-build-system.custom:
+
+build-system:
+
+BUILD SUCCESSFUL
+Total time: 52 seconds
