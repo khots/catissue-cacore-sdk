@@ -8,7 +8,7 @@
 # Copyright Krishagni
 #
 # Distributed under the OSI-approved BSD 3-Clause License.
-# See http://ncip.github.com/catissue_cacore_sdk/LICENSE.txt for details.
+# See http://ncip.github.com/catissue-cacore-sdk/LICENSE.txt for details.
 #============================================================================
 #L
 
@@ -38,7 +38,7 @@ class LicenseUpdater
  Copyright Krishagni
 
  Distributed under the OSI-approved BSD 3-Clause License.
- See http://ncip.github.com/catissue_cacore_sdk/LICENSE.txt for details.
+ See http://ncip.github.com/catissue-cacore-sdk/LICENSE.txt for details.
 TEXT
 
   attr_reader :filename, :contents

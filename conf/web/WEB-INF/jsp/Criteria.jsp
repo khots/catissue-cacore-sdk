@@ -5,7 +5,7 @@
    Copyright Krishagni
 
    Distributed under the OSI-approved BSD 3-Clause License.
-   See http://ncip.github.com/catissue_cacore_sdk/LICENSE.txt for details.
+   See http://ncip.github.com/catissue-cacore-sdk/LICENSE.txt for details.
 L--%>
 
 <%@ page contentType="text/html; charset=UTF-8" %>
