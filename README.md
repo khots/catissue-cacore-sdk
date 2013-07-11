@@ -13,7 +13,6 @@ Please see the NOTICE and LICENSE files for details.
 You will find more details about the caTissue Migration Tool in the following links:
  * [caTissue Tools Wiki] (https://wiki.nci.nih.gov/x/uIH_Ag)
  * [caTissue Wiki] (https://wiki.nci.nih.gov/x/uJT9AQ)
- * [NCI OSDI] (https://wiki.nci.nih.gov/display/caBIGCommunityCode/CBIIT+Open+Source+Development+Initiative)
  * [Issue Tracker] (https://bugzilla.wustl.edu/bugzilla/)
  * [Code Repository] (https://github.com/NCIP/catissue-cacore-sdk)
 
