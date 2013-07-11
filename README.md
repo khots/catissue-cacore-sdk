@@ -3,8 +3,8 @@ Welcome to the caTissue caCORE SDK Project!
 
 The caTissue Suite API is generated using caCORE SDK. The caCORE Software Development Kit (SDK) generates a system built on the principles of Model Driven Architecture (MDA), n-tier architecture and a common API for data access.
  
-The caTissue caCORE SDK is used by caTissue project to dynamically generate code from a UML model. 
- 
+The caTissue caCORE SDK is a customized version of [caCORE SDK] (https://github.com/NCIP/cacore-sdk) and it is used by caTissue project to dynamically generate code from a UML model. 
+
 caTissue caCORE SDK is an Open Source project written in Java using Castor, Hibernate, Spring Framework, JAXB, Apache Commons, caCORE CSM, Apache Ant.
 
 The caTissue caCORE SDK is distributed under the BSD 3-Clause License.
