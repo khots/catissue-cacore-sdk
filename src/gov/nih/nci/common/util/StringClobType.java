@@ -20,6 +20,7 @@ import oracle.sql.CLOB;
 
 import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.usertype.UserType;
 import org.jboss.resource.adapter.jdbc.WrappedConnection;
 
@@ -332,5 +333,19 @@ public class StringClobType implements UserType
 	    {
 	        return new int[] { Types.CLOB };
 	    }
+    @Override
+    public Object nullSafeGet(ResultSet arg0, String[] arg1, SessionImplementor arg2, Object arg3)
+        throws HibernateException, SQLException
+    {
+      // TODO Auto-generated method stub
+      return null;
+    }
+    @Override
+    public void nullSafeSet(PreparedStatement arg0, Object arg1, int arg2, SessionImplementor arg3)
+        throws HibernateException, SQLException
+    {
+      // TODO Auto-generated method stub
+      
+    }
 
 }
